@@ -1,2 +1,0 @@
-<p>Nombre del example1: <?php echo e($example1->nombre); ?></p>
-<p>Nombre del example2: <?php echo e($example2->nombre); ?></p><?php /**PATH C:\xampp2\htdocs\slopezmenend\Civis\civis\resources\views/pages/example.blade.php ENDPATH**/ ?>
