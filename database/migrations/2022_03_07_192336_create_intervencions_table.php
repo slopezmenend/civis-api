@@ -17,24 +17,24 @@ class CreateIntervencionsTable extends Migration
             $table->increments('id')->unsigned();
             //$table->primary('id');
 
-            $table->integer('legislatura')->unsigned();
-            $table->string('objeto');
-            $table->date('sesion');
-            $table->string('organo');
-            $table->string('fase');
-            $table->string('tipoIntervencion');
-            $table->integer('diputado_id')->unsigned();
+            $table->integer('legislatura')->unsigned()->nullable;
+            $table->text('objeto')->default('');
+            $table->date('sesion')->nullable;
+            $table->text('organo')->default('');
+            $table->string('fase')->default('');
+            $table->string('tipoIntervencion')->default('');
+            $table->integer('diputado_id')->unsigned()->nullable;
             $table->foreign('diputado_id')->references('id')->on('diputados')->onDelete('cascade');
-            $table->string('cargo')->default('');
-            $table->time('inicio');
-            $table->time('fin');
+            $table->string('cargo')->default('')->default('');
+            $table->time('inicio')->nullable;
+            $table->time('fin')->nullable;
 
-            $table->string('enlaceDiferido')->default('');
-            $table->string('enlaceDescargaDirecta')->default('');
-            $table->string('enlaceTextoIntegro')->default('');
-            $table->string('EnlacePDF')->default('');
+            $table->text('enlaceDiferido')->default('');
+            $table->text('enlaceDescargaDirecta')->default('');
+            $table->text('enlaceTextoIntegro')->default('');
+            $table->text('EnlacePDF')->default('');
 
-            $table->string('enlaceSubtitles')->default('');
+            $table->text('enlaceSubtitles')->default('');
 
             $table->timestamps();
 

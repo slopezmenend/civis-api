@@ -17,6 +17,7 @@ class Grupo extends Model
 
     public static function findOrCreate ($nombre)
     {
+        dump ("Findorcreate grupo", $nombre);
         $obj = Grupo::where('nombre', $nombre)->first();
 
         if (!isset($obj->id))
@@ -26,6 +27,7 @@ class Grupo extends Model
             ]);
             $obj->save();
         }
+        dump ($obj);
         return $obj;
     }
 }

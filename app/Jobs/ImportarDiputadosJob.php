@@ -11,53 +11,44 @@ use Illuminate\Queue\SerializesModels;
 
 use App\Models\Congreso\Modelos\DiputadoImportado;
 use App\Models\Congreso\Modelos\Diputado;
-use App\Interfaces\CongresoRepositoryInterface;
 
-use App\Models\Congreso\Modelos\Circunscripcion;
-use App\Models\Congreso\Modelos\Partido;
-use App\Models\Congreso\Modelos\Grupo;
+//use App\Models\Congreso\Modelos\Intervencion;
+use App\Utils\HTMLUtils;
+use App\Utils\Avance;
 
 /*use App\Interfaces\CongresoRepositoryInterface;
-use DateTime;
-use DateInterval;
-use App\Models\Congreso\Modelos\Intervencion;
-use App\Models\Congreso\Modelos\Votacion;
-use App\Models\Congreso\Modelos\Voto;
-use App\Models\Congreso\Modelos\DiputadoImportado;
-use App\Models\Congreso\Modelos\Diputado;
+
 use App\Models\Congreso\Modelos\Circunscripcion;
 use App\Models\Congreso\Modelos\Partido;
-use App\Models\Congreso\Modelos\Grupo;
-use App\Models\Status;*/
+use App\Models\Congreso\Modelos\Grupo;*/
 
 class ImportarDiputadosJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    private CongresoRepositoryInterface $congresoRepository;
-
-    /**
-     * Create a new job instance.
-     *
-     * @return void
-     */
-    public function __construct(CongresoRepositoryInterface $congresoRepository)
-    {
-        $this->congresoRepository = $congresoRepository;
-    }
-
     public function importar_diputados_json($url)
     {
-        ini_set('max_execution_time', 0);
+/*        ini_set('max_execution_time', 0);
         //$url = 'https://www.congreso.es/webpublica/opendata/diputados/DiputadosActivos__20220314050019.json';
 
         $jsondata = file_get_contents($url);
         $data = json_decode($jsondata, true);
 
+        $contador = 0;
+        $total = sizeof($data);
+
         //cargamos diputados importados
         foreach ($data as $diputado)
         {
-            //dump ($diputado);
+            $contador = $contador + 1;
+            if (($contador % 10 == 0) || ($contador == 1))
+            {
+                $avance = ($contador / $total) * 100;
+                dump ($avance);
+                $this->congresoRepository->setImportarDiputadosPerc($avance);
+            }
+
+            dump ($diputado);
             $nombre =  $diputado['NOMBRE'];
             try{
                 $trozos = explode(',', $nombre);
@@ -73,10 +64,12 @@ class ImportarDiputadosJob implements ShouldQueue
             try {
                 $circ = $this->congresoRepository->findOrCreateCircunscripcion($circunscripcion);//->id;
                 $circunscripcion_id = $circ->id;
+                dump ($circunscripcion_id);
             } catch (Exception $e) {
                 $circunscripcion_id = null;
             }
             $formacionelectoral =  $diputado['FORMACIONELECTORAL'];
+            dump ('Vamos a buscar el partido', $formacionelectoral);
             try {
                 $part = $this->congresoRepository->findOrCreatePartido($formacionelectoral);
                 $partido_id = $part->id;
@@ -138,12 +131,32 @@ class ImportarDiputadosJob implements ShouldQueue
                 ]);
 
             $diputado_imp->save();
+        }*/
+
+        //hacemos que no se boquee el job por timeout
+        ini_set('max_execution_time', 0);
+
+        //leemos las intervenciones del json indicado
+        $jsondata = file_get_contents($url);
+        $data = json_decode($jsondata, true);
+
+        //ahora creamos el objeto de avance para mostrar el progreso
+        $avance = new Avance ('DIPUTADOS_ST', 'DIPUTADOS_AV', sizeof($data));
+        $contador = 0;
+        foreach ($data as $diputado)
+        {
+            //creamos el diputado para cada registro
+            $dipu = DiputadoImportado::createFromJSON ($diputado);
+
+            //avanzamos el avance
+            $avance->avanzar($contador = $contador + 1);
+
+            //dump ($contador, $int);
         }
     }
 
-    public function importar_diputados()
-    {
-        $ruta = 'https://www.congreso.es/opendata/diputados';
+    public function importar_diputados(){
+/*        $ruta = 'https://www.congreso.es/opendata/diputados';
         $url = '';
 
         //dd($ruta);
@@ -154,35 +167,35 @@ class ImportarDiputadosJob implements ShouldQueue
         $as = $doc->getElementsByTagName ('a');
         foreach ($as as $a)
         {
-            //dump ($a);
-            $json = false;
                 foreach ($a->attributes as $aattribute)
                 {
-
-                    if ($aattribute->nodeName == 'class')
+                    if (($aattribute->nodeName == 'href') &&
+                    str_contains($aattribute->nodeValue, 'DiputadosActivos') &&
+                    str_contains($aattribute->nodeValue, 'json'))
                     {
-                        if (($aattribute->nodeValue == 'btn btn-primary btn-vot') &&
-                            ( str_contains($a->firstChild->data , 'JSON')))
-                        {
-                            $json = true;
-                            //dump($json);
-                        }
+                        $url = $aattribute->nodeValue;
                     }
-                    if (($aattribute->nodeName == 'href') && $json)
-                    {
-                        //dump ($aattribute->nodeValue);
-                        //dump($json);
-                        if (str_contains($aattribute->nodeValue, 'Cronologicamente'))
-                            $url = $aattribute->nodeValue;
-                    }
-            }
+                }
         }
 
 
         $url = 'https://www.congreso.es' . $url;
-        dump ($url);
-        //$url = 'https://www.congreso.es/webpublica/opendata/intervenciones/IntervencionesCronologicamente__20220318050122.json';
-        //$this->importar_diputados_json ($url);
+        dump ('Actualizado URL', $url);
+        try {
+        $this->importar_diputados_json ($url);
+        } Catch (Exception $e)
+        {
+
+        }*/
+        $ruta    = 'https://www.congreso.es/opendata/diputados';
+        $class   = 'btn btn-primary btn-vot';
+        $pattern = '*DiputadosActivos*.json';
+        $urls = HTMLUtils::get_enlaces ($ruta, $class, $pattern);
+        foreach ($urls as $url)
+        {
+            dump("URL: ", $url);
+            $this->importar_diputados_json($url);
+        }
     }
 
     public function importar_diputados_html()
@@ -295,42 +308,6 @@ class ImportarDiputadosJob implements ShouldQueue
                 array_push ($diputados_html, $diputado_html);
             }
 
-
-
-            //dump ($doc);
-            /*$xpath = new \DomXPath($doc);
-            dump ($xpath);
-
-$nodeList = $xpath->query("//div[@class='nombre-dip']");
-dump ($nodeList);
-// To check the result:
-$result = json_encode($nodeList);
-echo "<p>" . $result . "</p>";*/
-
-            /*
-        // example 1:
-        $elements = $doc->getElementsByClass('nombre-dip');
-        // example 2:
-        //$elements = $doc->getElementsByTagName('html');
-        // example 3:
-        //$elements = $doc->getElementsByTagName('body');
-        // example 4:
-        //$elements = $doc->getElementsByTagName('table');
-        // example 5:
-        //$elements = $doc->getElementsByTagName('div');
-
-        if (!is_null($elements)) {
-          foreach ($elements as $element) {
-            //echo "<br/>".$element->getAttribute('href');;
-
-            $nodes = $element->childNodes;
-            foreach ($nodes as $node) {
-              echo $node->nodeValue. "\n";
-            }
-          }
-
-        }*/
-
         }
         dump ($diputados_html);
     }
@@ -342,6 +319,11 @@ echo "<p>" . $result . "</p>";*/
      */
     public function handle()
     {
-
+        //$this->congresoRepository->setImportarDiputados(true);
+        dump ('Importando diputados JSON');
+        $this->importar_diputados();
+        //dump ('Importando diputados HTML');
+        //$this->importar_diputados_html();
+        //$this->congresoRepository->setImportarDiputados(false);
     }
 }

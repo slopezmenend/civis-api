@@ -18,7 +18,7 @@ class CreateEstadoCivilsTable extends Migration
             $table->integer('sexo_id')->unsigned();
             $table->foreign('sexo_id')->references('id')->on('sexos')->onDelete('cascade');
             $table->primary('id','sexo_id');
-            $table->string('nombre');
+            $table->string('nombre')->default('');
             $table->timestamps();
         });
     }

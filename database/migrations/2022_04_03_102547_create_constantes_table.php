@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSexosTable extends Migration
+class CreateConstantesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreateSexosTable extends Migration
      */
     public function up()
     {
-        Schema::create('sexos', function (Blueprint $table) {
-            $table->increments('id')->unsigned();
-            //$table->primary('id');
-            $table->string ('nombre')->default('');
+        Schema::create('constantes', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->string('value')->default('');
             $table->timestamps();
         });
     }
@@ -28,6 +28,6 @@ class CreateSexosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('sexos');
+        Schema::dropIfExists('constantes');
     }
 }

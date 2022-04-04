@@ -17,11 +17,11 @@ class CreateVotosTable extends Migration
             $table->increments('id')->unsigned();
             //$table->increments('id');
             //$table->primary('id');
-            $table->integer('votacion_id')->unsigned();
+            $table->integer('votacion_id')->unsigned()->nulable;
             $table->foreign('votacion_id')->references('id')->on('votacions')->onDelete('cascade');
-            $table->integer('diputado_id')->unsigned();
+            $table->integer('diputado_id')->unsigned()->nulable;
             $table->foreign('diputado_id')->references('id')->on('diputados')->onDelete('cascade');
-			$table->string('voto');
+			$table->string('voto')->default('');
 
             $table->timestamps();
         });

@@ -101,7 +101,7 @@ private function convertir_sql2json_date ($date)
             ]);
             $obj->save();
         }
-
+        dump ('Find or Create Circunscripcion' , $nombre, $obj);
         return $obj;
     }
 
@@ -116,20 +116,28 @@ private function convertir_sql2json_date ($date)
             ]);
             $obj->save();
         }
+        dump ('Find or Create Grupo' , $nombre, $obj);
         return $obj;
     }
 
     public function findOrCreatePartido ($nombre)
     {
+        dump ('Find or Create Partido' , $nombre);
         $obj = Partido::where('nombre', $nombre)->first();
 
+        dump ('Where Find or Create Partido' , $obj);
+        dump (isset($obj->id));
         if (!isset($obj->id))
         {
-            $obj = Partido::create([
+            $obj = new Partido();
+            $obj->nombre = $nombre;
+            /*$obj = Partido::create([
                 'nombre' => $nombre
-            ]);
+            ]);*/
+            dump ('Creamos en Find or Create Partido' , $obj);
             $obj->save();
         }
+        dump ('Fin Find or Create Partido' , $obj);
         return $obj;
     }
 
@@ -205,6 +213,22 @@ private function convertir_sql2json_date ($date)
             $this->status->avance_intervenciones = 0;
         else
             $this->status->avance_intervenciones = 100;
+        $this->status->update();
+    }
+
+    public function setImportarDiputadosPerc ($perc)
+    {
+        $this->status->avance_diputados = $perc;
+        $this->status->update();
+    }
+
+    public function setImportarDiputados ($valor)
+    {
+        $this->status->importando_diputados = $valor;
+        if ($valor)
+            $this->status->avance_diputados = 0;
+        else
+            $this->status->avance_diputados = 100;
         $this->status->update();
     }
 }

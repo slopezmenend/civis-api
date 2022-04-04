@@ -16,15 +16,15 @@ class CreateDiputadoImportadosTable extends Migration
         Schema::create('diputado_importados', function (Blueprint $table) {
             $table->increments('id')->unsigned();
             //$table->primary('id');
-            $table->string('nombre');
+            $table->string('nombre')->default('');
             $table->string('circunscripcion')->default('');
             $table->string('formacionelectoral')->default('');
-            $table->date('fechacondicionplena')->nullable->default(null);
-            $table->date('fechaalta')->nullable->default(null);
+            $table->date('fechacondicionplena')->nullable;
+            $table->date('fechaalta')->nullable;
             $table->string('grupoparlamentario')->default('');
-            $table->date('fechaaltagrupo')->nullable->default(null);
+            $table->date('fechaaltagrupo')->nullable;
             $table->text('biografia')->default('');
-            $table->integer('numero')->unsigned()->nullable->default(null);
+            $table->integer('numero')->unsigned()->nullable;
             $table->string('urlperfil')->default('');
             $table->string('urlfoto')->default('');
             $table->string('urlescaño')->default('');

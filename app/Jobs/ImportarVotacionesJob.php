@@ -9,17 +9,19 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 
-use App\Models\Congreso\Modelos\DiputadoImportado;
+/*use App\Models\Congreso\Modelos\DiputadoImportado;
 use App\Models\Congreso\Modelos\Diputado;
 use App\Interfaces\CongresoRepositoryInterface;
 
 use App\Models\Congreso\Modelos\Circunscripcion;
 use App\Models\Congreso\Modelos\Partido;
-use App\Models\Congreso\Modelos\Grupo;
+use App\Models\Congreso\Modelos\Grupo;*/
 
-use App\Utils\DateFormater;
+use App\Utils\FormaterUtils;
 use App\Models\Congreso\Modelos\Votacion;
 use App\Models\Congreso\Modelos\Voto;
+use App\Utils\Avance;
+
 
 /*use App\Interfaces\CongresoRepositoryInterface;
 use DateTime;
@@ -38,23 +40,21 @@ class ImportarVotacionesJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    private CongresoRepositoryInterface $congresoRepository;
+    /*private CongresoRepositoryInterface $congresoRepository;
 
-    /**
-     * Create a new job instance.
-     *
-     * @return void
-     */
     public function __construct(CongresoRepositoryInterface $congresoRepository)
     {
         $this->congresoRepository = $congresoRepository;
-    }
+    }*/
 
     private function import_json_votes($url, $name)
     {
         $jsondata = file_get_contents($url);
         $data = json_decode($jsondata, true);
 
+        $votacion = Votacion::createFromJSON ($data);
+
+/*
         $sesion = $data['informacion']['sesion'];
         $numeroVotacion = $data['informacion']['numeroVotacion'];
         $fecha = $data['informacion']['fecha'];
@@ -90,15 +90,17 @@ class ImportarVotacionesJob implements ShouldQueue
                 'noVotan'  => $noVotan
             ]
             );
-
+*/
 
         //echo "<li>".$fecha."Cargada sesion ".$sesion. " votación ".$numeroVotacion."</li>";
-        $votacion->save();
+        //$votacion->save();
         //dump ($votacion);
 
         //cargamos votos
         foreach ($data['votaciones'] as $votojson)
         {
+            $voto = Voto::createFromJSON ($votojson, $votacion->id);
+
             /*
             $diputado = $this->congresoRepository->getDiputadoByName($votojson['diputado']);
             if (!isset($diputado->id))
@@ -112,7 +114,7 @@ class ImportarVotacionesJob implements ShouldQueue
                 //dd ($diputado);
             }
             $diputado_id = $diputado->id;*/
-            $diputado_id = Diputado::findOrCreate ($votojson['diputado'])->id;
+            /*$diputado_id = Diputado::findOrCreate ($votojson['diputado'])->id;
 
             $voto = $votojson['voto'];
             //$diputado_id = $this->congresoRepository->getDiputadoByName($votojson['diputado']);
@@ -126,9 +128,8 @@ class ImportarVotacionesJob implements ShouldQueue
                 ]);
 
             //dump ($voto);
-            $voto->save();
+            $voto->save();*/
         }
-    }
     }
 
     private function get_date_votes ($date)
@@ -167,7 +168,7 @@ class ImportarVotacionesJob implements ShouldQueue
         //la fecha inicial será la misma de la última votación cargada
         //así realizaremos cargas incrementales
 
-        $fecha = $this->congresoRepository->getFechaUltimaVotacion();
+        $fecha = Votacion::max('fecha');
 
         //echo $fecha;
         if (($fecha == null) || ($fecha == '00/00/0000'))
@@ -177,7 +178,7 @@ class ImportarVotacionesJob implements ShouldQueue
         }
         else
         {
-            $date = DateFormater::convertir_string2date ($fecha);
+            $date = FormaterUtils::convertir_string2date ($fecha);
         }
         //$date = $fecha;
         //dump ($date);
@@ -193,21 +194,45 @@ class ImportarVotacionesJob implements ShouldQueue
         dump($enddate);
 
         $contador = 0;
-        $total = date_diff($enddate, $date)->d;
+        $total = date_diff($enddate, $date)->format('%a');;
+        $error = false;
 
         dump ($total);
-        while ($enddate >= $date)
+        //ahora creamos el objeto de avance para mostrar el progreso
+        $avance = new Avance ('VOTACIONES_ST', 'VOTACIONES_AV', $total);
+
+        while (($enddate >= $date) && (!$error))
         {
             $contador = $contador + 1;
-            if ($contador % 10 == 0)
+            /*if (($contador % 10 == 0) || ($contador == 1))
             {
-                $avance = ($contador / $total);
+                $avance = ($contador / $total) * 100;
                 dump ($avance);
                 $this->congresoRepository->setImportarVotacionesPerc($avance);
-            }
+            }*/
             $filedate = $date->format('d/m/Y');
-            $this->get_date_votes ($filedate);
-            $date = $date->add (new \DateInterval('P1D'));
+
+            //avanzamos el avance
+            $avance->avanzar($contador = $contador + 1);
+
+            /*try
+            {
+                $avance = ($contador / $total) * 100;
+                dump ($avance);
+                $this->congresoRepository->setImportarVotacionesPerc($avance);*/
+                dump ($filedate);
+                $this->get_date_votes ($filedate);
+                $date = $date->add (new \DateInterval('P1D'));
+            /*}
+            catch (Exception $e)
+            {
+                $this->congresoRepository->setImportarIntervenciones(false);
+                $error = true;
+                dump ('Proceso terminado por excepcion');
+                dump ($e);
+            }*/
+
+
             //dump($date);
             //dump($enddate >= $date);
         }
@@ -221,8 +246,8 @@ class ImportarVotacionesJob implements ShouldQueue
      */
     public function handle()
     {
-        $this->congresoRepository->setImportarVotaciones(true);
+        //$this->congresoRepository->setImportarVotaciones(true);
         $this->importar_votaciones ();
-        $this->congresoRepository->setImportarVotaciones(false);
+        //$this->congresoRepository->setImportarVotaciones(false);
     }
 }

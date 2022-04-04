@@ -9,7 +9,7 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 
-use App\Models\Congreso\Modelos\DiputadoImportado;
+/*use App\Models\Congreso\Modelos\DiputadoImportado;
 use App\Models\Congreso\Modelos\Diputado;
 use App\Interfaces\CongresoRepositoryInterface;
 
@@ -17,41 +17,52 @@ use App\Models\Congreso\Modelos\Circunscripcion;
 use App\Models\Congreso\Modelos\Partido;
 use App\Models\Congreso\Modelos\Grupo;
 
-use App\Utils\DateFormater;
+use App\Utils\DateFormater;*/
 use App\Models\Congreso\Modelos\Intervencion;
-
-/*use App\Interfaces\CongresoRepositoryInterface;
-use DateTime;
-use DateInterval;
-use App\Models\Congreso\Modelos\Intervencion;
-use App\Models\Congreso\Modelos\Votacion;
-use App\Models\Congreso\Modelos\Voto;
-use App\Models\Congreso\Modelos\DiputadoImportado;
-use App\Models\Congreso\Modelos\Diputado;
-use App\Models\Congreso\Modelos\Circunscripcion;
-use App\Models\Congreso\Modelos\Partido;
-use App\Models\Congreso\Modelos\Grupo;
-use App\Models\Status;*/
+use App\Utils\HTMLUtils;
+use App\Utils\Avance;
 
 class ImportarIntervencionesJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    private CongresoRepositoryInterface $congresoRepository;
+    //private CongresoRepositoryInterface $congresoRepository;
 
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct(CongresoRepositoryInterface $congresoRepository)
+    /*public function __construct(CongresoRepositoryInterface $congresoRepository)
     {
         $this->congresoRepository = $congresoRepository;
-    }
+    }*/
 
     public function importar_intervenciones_json($url)
     {
+        //hacemos que no se boquee el job por timeout
         ini_set('max_execution_time', 0);
+
+        //leemos las intervenciones del json indicado
+        $jsondata = file_get_contents($url);
+        $data = json_decode($jsondata, true);
+
+        //ahora creamos el objeto de avance para mostrar el progreso
+        $avance = new Avance ('INTERVENCIONES_ST', 'INTERVENCIONES_AV', sizeof($data));
+        $contador = 0;
+        foreach ($data as $intervencion)
+        {
+            //creamos la intervencion para cada registro
+            $int = Intervencion::createFromJSON ($intervencion);
+
+            //avanzamos el avance
+            $avance->avanzar($contador = $contador + 1);
+
+            //dump ($contador, $int);
+        }
+
+
+        /*ini_set('max_execution_time', 0);
         //$url = 'https://www.congreso.es/webpublica/opendata/intervenciones/IntervencionesCronologicamente__20220318050122.json';
         $jsondata = file_get_contents($url);
         $data = json_decode($jsondata, true);
@@ -90,22 +101,7 @@ class ImportarIntervencionesJob implements ShouldQueue
             {
 
             $diputado_id = Diputado::findOrCreate ($intervencion['ORADOR'])->id;
-            /*$diputado = $this->congresoRepository->getDiputadoByName($intervencion['ORADOR']);
-            if ($diputado == null)
-            {
-                //$nombre = $intervencion['ORADOR'];
-                $nombre = explode('(',  $intervencion['ORADOR']);
-                //como no hay diputado con su nombre cargamos uno con todos los datos iniciales para crear el id
-                $diputado_t = Diputado::create (
-                    [
-                    'nombrecompleto' => $nombre[0]
-                    ]);
-                $diputado_t->save();
-                $diputado_id = $diputado_t->id;
-            }
-            else
-                $diputado_id = $diputado->id;
-*/
+
             if (isset($intervencion['INICIOINTERVENCION']))
                 $inicio = $intervencion['INICIOINTERVENCION'];
             else $inicio =null;
@@ -148,12 +144,12 @@ class ImportarIntervencionesJob implements ShouldQueue
             }
             }
         }
-        }
+        }*/
     }
 
     public function importar_intervenciones()
     {
-        $ruta = 'https://www.congreso.es/opendata/intervenciones';
+/*        $ruta = 'https://www.congreso.es/opendata/intervenciones';
         $url = '';
 
         //dd($ruta);
@@ -192,7 +188,25 @@ class ImportarIntervencionesJob implements ShouldQueue
         $url = 'https://www.congreso.es' . $url;
         dump ($url);
         //$url = 'https://www.congreso.es/webpublica/opendata/intervenciones/IntervencionesCronologicamente__20220318050122.json';
-        $this->importar_intervenciones_json ($url);
+        try
+        {
+            $this->importar_intervenciones_json ($url);
+        }
+        catch (Exception $e)
+        {
+            $this->congresoRepository->setImportarIntervenciones(false);
+            dump ('Proceso terminado por excepcion');
+            dump ($e);
+        }*/
+        $ruta    = 'https://www.congreso.es/opendata/intervenciones';
+        $class   = 'btn btn-primary btn-vot';
+        $pattern = '*Cronologicamente*.json';
+        $urls = HTMLUtils::get_enlaces ($ruta, $class, $pattern);
+        foreach ($urls as $url)
+        {
+            dump("URL: ", $url);
+            $this->importar_intervenciones_json($url);
+        }
     }
 
     /**
@@ -202,8 +216,22 @@ class ImportarIntervencionesJob implements ShouldQueue
      */
     public function handle()
     {
-        $this->congresoRepository->setImportarIntervenciones(true);
+        //$this->congresoRepository->setImportarIntervenciones(true);
         $this->importar_intervenciones();
-        $this->congresoRepository->setImportarIntervenciones(false);
+        //$this->congresoRepository->setImportarIntervenciones(false);
+    }
+
+    /**
+     * Handle a job failure.
+     *
+     * @param  \Throwable  $exception
+     * @return void
+     */
+    public function failed(Throwable $exception)
+    {
+        // Send user notification of failure, etc...
+        $avance = new Avance ('INTERVENCIONES_ST', 'INTERVENCIONES_AV', sizeof($data));
+        $avance->finalizar();
+        dump ($exception);
     }
 }

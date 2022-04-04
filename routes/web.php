@@ -31,7 +31,7 @@ Route::get ('/', 'PagesController@index');
 Route::get ('/votaciones/importar/', 'ScriptController@import_votaciones_job')->name("votaciones.importar");
 Route::get ('/diputados/importar/', 'ScriptController@import_diputados_job')->name('diputados.importar');
 Route::get ('/diputados/revisar/', 'ScriptController@importar_diputados')->name("diputados.revisar");
-Route::get ('/diputados/importarhtml/', 'ScriptController@importar_diputados_html')->name("diputados.importarhtml");
+//Route::get ('/diputados/importarhtml/', 'ScriptController@importar_diputados_html')->name("diputados.importarhtml");
 Route::get ('/intervenciones/importar/', 'ScriptController@import_intervenciones_job')->name("intervenciones.importar");
 //Route::get ('/intervenciones/importar/', 'ScriptController@test')->name("intervenciones.importar");
 Route::get ('/intervenciones/revisar/', 'ScriptController@importar_intervenciones')->name("intervenciones.revisar");
