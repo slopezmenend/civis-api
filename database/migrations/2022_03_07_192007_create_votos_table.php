@@ -17,9 +17,9 @@ class CreateVotosTable extends Migration
             $table->increments('id')->unsigned();
             //$table->increments('id');
             //$table->primary('id');
-            $table->integer('votacion_id')->unsigned()->nulable;
+            $table->integer('votacion_id')->unsigned()->nullable();
             $table->foreign('votacion_id')->references('id')->on('votacions')->onDelete('cascade');
-            $table->integer('diputado_id')->unsigned()->nulable;
+            $table->integer('diputado_id')->unsigned()->nullable();
             $table->foreign('diputado_id')->references('id')->on('diputados')->onDelete('cascade');
 			$table->string('voto')->default('');
 

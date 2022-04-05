@@ -11,7 +11,7 @@ use App\Models\Congreso\Modelos\Voto;
 use App\Models\Congreso\Modelos\Circunscripcion;
 use App\Models\Congreso\Modelos\Partido;
 use App\Models\Congreso\Modelos\Grupo;
-use App\Models\Status;
+use App\Models\Constante;
 
 class CongresoRepository implements CongresoRepositoryInterface
 {
@@ -34,7 +34,7 @@ private function convertir_sql2json_date ($date)
     return $fecha_temp;
 }
 
-    private Status $status;
+    //private Status $status;
 
     /**
      * Create a new job instance.
@@ -43,7 +43,7 @@ private function convertir_sql2json_date ($date)
      */
     public function __construct()
     {
-        $this->status = Status::first();
+        //$this->status = Status::first();
     }
 
     public function getAllDiputados()
@@ -152,27 +152,33 @@ private function convertir_sql2json_date ($date)
         $diputados_data = array (
             "creados" => Diputado::count(),
             "pendientes" => DiputadoImportado::where('revisado',false)->count(),
-            "fechaimp" =>$this->convertir_sql2json_date(DiputadoImportado::max('fechaimp'))
+            "fechaimp" =>$this->convertir_sql2json_date(DiputadoImportado::max('fechaimp')),
+            "status" => Constante::findOrCreate('DIPUTADOS_ST')->value,
+            "porcentaje" => Constante::findOrCreate('DIPUTADOS_AV')->value
         );
 
         $votaciones_data = array (
             "votaciones" => Votacion::count(),
             "votos" => Voto::count(),
-            "fechaimp" => $this->convertir_sql2json_date(Votacion::max('created_at'))
+            "fechaimp" => $this->convertir_sql2json_date(Votacion::max('created_at')),
+            "status" => Constante::findOrCreate('VOTACIONES_ST')->value,
+            "porcentaje" => Constante::findOrCreate('VOTACIONES_AV')->value
         );
         //dump ($votaciones_data);
 
         $intervenciones_data = array (
             "creados" => Intervencion::count(),
             "pendientes" => Intervencion::where('enlaceSubtitles','')->count(),
-            "fechaimp" => $this->convertir_sql2json_date(Intervencion::max('created_at'))
+            "fechaimp" => $this->convertir_sql2json_date(Intervencion::max('created_at')),
+            "status" => Constante::findOrCreate('INTERVENCIONES_ST')->value,
+            "porcentaje" => Constante::findOrCreate('INTERVENCIONES_AV')->value
         );
 
 
         //dump ($intervenciones_data);
 
         $data = array (
-            "status" => Status::first(),
+            //"status" => Status::first(),
             "diputados" => $diputados_data,
             "votaciones"  => $votaciones_data,
             "intervenciones"   => $intervenciones_data,
@@ -184,7 +190,7 @@ private function convertir_sql2json_date ($date)
         return $data;
     }
 
-    public function setImportarVotacionesPerc ($perc)
+    /*public function setImportarVotacionesPerc ($perc)
     {
         $this->status->avance_votaciones = $perc;
         $this->status->update();
@@ -230,6 +236,6 @@ private function convertir_sql2json_date ($date)
         else
             $this->status->avance_diputados = 100;
         $this->status->update();
-    }
+    }*/
 }
 

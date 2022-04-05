@@ -29,8 +29,12 @@ class Diputado extends Model
                             'urlperfil',
                             'urlfoto',
                             'urlescaño',
-                            'fechanacimiento',
-                            'estudios'];
+                            'email',
+                            'twitter',
+                            'facebook',
+                            'instagram',
+                            'youtube',
+                            'webpersonal'];
 
     public function circunscripcion ()
     {
@@ -100,7 +104,9 @@ class Diputado extends Model
         //en muchos puntos de las referencias del congreso aparece "Fernandez, Juan (GMx)" en lugar de "Fernandez, Juan"
         //con esto eliinamos esa posibilidad.
         $nombre = explode('(', $nombrecompleto)[0];
+
         $obj = Diputado::where('nombrecompleto', $nombre)->first();
+        if (($nombre== '') || ($nombre ==' ')) { dump ($nombre, $nombrecompleto); return null;}
 
         return isset($obj->id)? $obj : $diputado = Diputado::create (
             [

@@ -19,12 +19,12 @@ class CreateDiputadoImportadosTable extends Migration
             $table->string('nombre')->default('');
             $table->string('circunscripcion')->default('');
             $table->string('formacionelectoral')->default('');
-            $table->date('fechacondicionplena')->nullable;
-            $table->date('fechaalta')->nullable;
+            $table->date('fechacondicionplena')->nullable();
+            $table->date('fechaalta')->nullable();
             $table->string('grupoparlamentario')->default('');
-            $table->date('fechaaltagrupo')->nullable;
+            $table->date('fechaaltagrupo')->nullable();
             $table->text('biografia')->default('');
-            $table->integer('numero')->unsigned()->nullable;
+            $table->integer('numero')->unsigned()->nullable();
             $table->string('urlperfil')->default('');
             $table->string('urlfoto')->default('');
             $table->string('urlescaño')->default('');

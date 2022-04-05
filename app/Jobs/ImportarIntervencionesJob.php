@@ -9,15 +9,6 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 
-/*use App\Models\Congreso\Modelos\DiputadoImportado;
-use App\Models\Congreso\Modelos\Diputado;
-use App\Interfaces\CongresoRepositoryInterface;
-
-use App\Models\Congreso\Modelos\Circunscripcion;
-use App\Models\Congreso\Modelos\Partido;
-use App\Models\Congreso\Modelos\Grupo;
-
-use App\Utils\DateFormater;*/
 use App\Models\Congreso\Modelos\Intervencion;
 use App\Utils\HTMLUtils;
 use App\Utils\Avance;
@@ -26,6 +17,7 @@ class ImportarIntervencionesJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
+    private Avance $avance;
     //private CongresoRepositoryInterface $congresoRepository;
 
     /**
@@ -48,15 +40,16 @@ class ImportarIntervencionesJob implements ShouldQueue
         $data = json_decode($jsondata, true);
 
         //ahora creamos el objeto de avance para mostrar el progreso
-        $avance = new Avance ('INTERVENCIONES_ST', 'INTERVENCIONES_AV', sizeof($data));
+        $this->avance = new Avance ('INTERVENCIONES_ST', 'INTERVENCIONES_AV', sizeof($data));
         $contador = 0;
         foreach ($data as $intervencion)
         {
+            dump (round($contador/sizeof($data),2));
             //creamos la intervencion para cada registro
             $int = Intervencion::createFromJSON ($intervencion);
 
             //avanzamos el avance
-            $avance->avanzar($contador = $contador + 1);
+            $this->avance->avanzar($contador = $contador + 1);
 
             //dump ($contador, $int);
         }
@@ -230,8 +223,10 @@ class ImportarIntervencionesJob implements ShouldQueue
     public function failed(Throwable $exception)
     {
         // Send user notification of failure, etc...
-        $avance = new Avance ('INTERVENCIONES_ST', 'INTERVENCIONES_AV', sizeof($data));
-        $avance->finalizar();
-        dump ($exception);
+        //$avance = new Avance ('INTERVENCIONES_ST', 'INTERVENCIONES_AV', sizeof($data));
+        if (isset($this->avance))
+            $this->avance->finalizar();
+        //dump ($exception);
+        dump ("Proceso terminado por excepción");
     }
 }

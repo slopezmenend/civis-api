@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Interfaces\CongresoRepositoryInterface;
 
+use App\Models\Congreso\Modelos\Diputado;
+
 class APIController extends Controller
 {
     private CongresoRepositoryInterface $congresoRepository;
@@ -16,7 +18,7 @@ class APIController extends Controller
 
     public function getAllDiputados()//: JsonResponse
     {
-        $data = $this->congresoRepository->getAllDiputados();
+        $data = Diputado::all();
         if ($data != null)
             return response()->json(['data' => $data ]);
         else

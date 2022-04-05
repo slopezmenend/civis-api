@@ -22,9 +22,9 @@ class CreateVotacionsTable extends Migration
 			/*
 			 * Datos generales
 			 */
-			$table->integer('sesion')->unsigned()->nulable;
-			$table->integer('numeroVotacion')->unsigned()->nulable;
-			$table->date('fecha')->nulable;
+			$table->integer('sesion')->unsigned()->nullable();
+			$table->integer('numeroVotacion')->unsigned()->nullable();
+			$table->date('fecha')->nullable();
 			$table->string('titulo')->default('');
 			$table->text('textoExpediente')->default('');
 
@@ -32,11 +32,11 @@ class CreateVotacionsTable extends Migration
 			 * Datos totales
 			 */
 			$table->string('asentimiento')->default('');
-			$table->integer('presentes')->unsigned()->nulable;
-			$table->integer('afavor')->unsigned()->nulable;
-			$table->integer('enContra')->unsigned()->nulable;
-			$table->integer('abstenciones')->unsigned()->nulable;
-			$table->integer('noVotan')->unsigned()->nulable;
+			$table->integer('presentes')->unsigned()->nullable();
+			$table->integer('afavor')->unsigned()->nullable();
+			$table->integer('enContra')->unsigned()->nullable();
+			$table->integer('abstenciones')->unsigned()->nullable();
+			$table->integer('noVotan')->unsigned()->nullable();
 
             $table->timestamps();
         });

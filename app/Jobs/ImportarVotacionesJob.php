@@ -40,6 +40,8 @@ class ImportarVotacionesJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
+    private Avance $avance;
+
     /*private CongresoRepositoryInterface $congresoRepository;
 
     public function __construct(CongresoRepositoryInterface $congresoRepository)
@@ -199,11 +201,11 @@ class ImportarVotacionesJob implements ShouldQueue
 
         dump ($total);
         //ahora creamos el objeto de avance para mostrar el progreso
-        $avance = new Avance ('VOTACIONES_ST', 'VOTACIONES_AV', $total);
+        $this->avance = new Avance ('VOTACIONES_ST', 'VOTACIONES_AV', $total);
 
         while (($enddate >= $date) && (!$error))
         {
-            $contador = $contador + 1;
+            //$contador = $contador + 1;
             /*if (($contador % 10 == 0) || ($contador == 1))
             {
                 $avance = ($contador / $total) * 100;
@@ -213,7 +215,7 @@ class ImportarVotacionesJob implements ShouldQueue
             $filedate = $date->format('d/m/Y');
 
             //avanzamos el avance
-            $avance->avanzar($contador = $contador + 1);
+            $this->avance->avanzar($contador = $contador + 1);
 
             /*try
             {
@@ -249,5 +251,19 @@ class ImportarVotacionesJob implements ShouldQueue
         //$this->congresoRepository->setImportarVotaciones(true);
         $this->importar_votaciones ();
         //$this->congresoRepository->setImportarVotaciones(false);
+    }
+
+    /**
+     * Handle a job failure.
+     *
+     * @param  \Throwable  $exception
+     * @return void
+     */
+    public function failed(Throwable $exception)
+    {
+        // Send user notification of failure, etc...
+        //$avance = new Avance ('VOTACIONES_ST', 'VOTACIONES_AV', sizeof($data));
+        $this->avance->finalizar();
+        dump ($exception);
     }
 }

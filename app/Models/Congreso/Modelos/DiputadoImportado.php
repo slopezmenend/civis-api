@@ -34,11 +34,11 @@ class DiputadoImportado extends Model
 
     public static function createFromJSON ($data)
     {
-        dump ("Create from JSON (I): ", $data);
+        //dump ("Create from JSON (I): ", $data);
         $nombre = FormaterUtils::JSONValueOrEmpty ($data, 'NOMBRE');
-        dump ("Nombre: ", $nombre);
+        //dump ("Nombre: ", $nombre);
         $diputado = DiputadoImportado::where ('nombre', $nombre)->first();
-        dump ("Diputado buscado: ", $diputado);
+        //dump ("Diputado buscado: ", $diputado);
 
         //la intervención ya existía así que no se crea
         if ($diputado != null)
@@ -67,8 +67,21 @@ class DiputadoImportado extends Model
 
         $diputado->save();
 
-        dump ("Creado diputadoImoortado:", $diputado);
+        //dump ("Creado diputadoImoortado:", $diputado);
         return $diputado;
+    }
+
+    public static function findOrCreate ($nombrecompleto)
+    {
+        //en muchos puntos de las referencias del congreso aparece "Fernandez, Juan (GMx)" en lugar de "Fernandez, Juan"
+        //con esto eliinamos esa posibilidad.
+        $nombre = explode('(', $nombrecompleto)[0];
+        $obj = DiputadoImportado::where('nombre', $nombre)->first();
+
+        return isset($obj->id)? $obj : $diputado = Diputado::create (
+            [
+            'nombre' => $nombre
+            ]) ;
     }
 
 }

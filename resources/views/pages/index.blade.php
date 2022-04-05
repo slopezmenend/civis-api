@@ -23,7 +23,7 @@
                 </a>
             </div>
 
-            @if (!$summary['status']->importando_diputados)
+            @if (!$summary['diputados']['status'])
                 <div class="card">
                     <a href="{{ route('diputados.importar') }}" class="text-decoration-none" aria-disabled="true">
                         <div class="card-body">
@@ -65,11 +65,11 @@
                             <div class="media-body text-right">
                                 <div class="progress ml-4">
                                     <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
-                                        aria-valuenow="{{ $summary['status']->avance_diputados }}" aria-valuemin="0"
-                                        aria-valuemax="100" style="width: {{ $summary['status']->avance_diputados }}%">
+                                        aria-valuenow="{{ $summary['diputados']['porcentaje'] }}" aria-valuemin="0"
+                                        aria-valuemax="100" style="width: {{ $summary['diputados']['porcentaje'] }}%">
                                     </div>
                                 </div>
-                                <span>Importado en progreso ({{ $summary['status']->avance_diputados }}%)</span>
+                                <span>Importado en progreso ({{ $summary['diputados']['porcentaje'] }}%)</span>
                             </div>
                         </div>
                     </div>
@@ -117,7 +117,7 @@
                 </a>
             </div>
 
-            @if ($summary['status']->importando_votaciones)
+            @if ($summary['votaciones']['status'])
                 <div class="card">
                     <div class="card-body">
                         <div class="media d-flex">
@@ -127,11 +127,11 @@
                             <div class="media-body text-right">
                                 <div class="progress ml-4">
                                     <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
-                                        aria-valuenow="{{ $summary['status']->avance_votaciones }}" aria-valuemin="0"
-                                        aria-valuemax="100" style="width: {{ $summary['status']->avance_votaciones }}%">
+                                        aria-valuenow="{{ $summary['votaciones']['porcentaje'] }}" aria-valuemin="0"
+                                        aria-valuemax="100" style="width: {{ $summary['votaciones']['porcentaje'] }}%">
                                     </div>
                                 </div>
-                                <span>Importado en progreso ({{ $summary['status']->avance_votaciones }}%)</span>
+                                <span>Importado en progreso ({{ $summary['votaciones']['porcentaje'] }}%)</span>
                             </div>
                         </div>
                     </div>
@@ -177,7 +177,7 @@
                 </a>
             </div>
 
-            @if (!$summary['status']->importando_intervenciones)
+            @if (!$summary['intervenciones']['status'])
                 <div class="card">
                     <a href="{{ route('intervenciones.importar') }}" class="text-decoration-none" aria-disabled="true">
                         <div class="card-body">
@@ -219,12 +219,12 @@
                             <div class="media-body text-right">
                                 <div class="progress ml-4">
                                     <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
-                                        aria-valuenow="{{ $summary['status']->avance_intervenciones }}" aria-valuemin="0"
+                                        aria-valuenow="{{ $summary['intervenciones']['porcentaje'] }}" aria-valuemin="0"
                                         aria-valuemax="100"
-                                        style="width: {{ $summary['status']->avance_intervenciones }}%">
+                                        style="width: {{ $summary['intervenciones']['porcentaje'] }}%">
                                     </div>
                                 </div>
-                                <span>Importado en progreso ({{ $summary['status']->avance_intervenciones }}%)</span>
+                                <span>Importado en progreso ({{ $summary['intervenciones']['porcentaje'] }}%)</span>
                             </div>
                         </div>
                     </div>

@@ -30,7 +30,7 @@ class Avance
         {
             if ($this->actual % 10 == 0)
             {
-                $this->constanteAvance->value = $this->actual / $this->total;
+                $this->constanteAvance->value = round(($this->actual / $this->total) * 100, 2);
                 $this->constanteAvance->save();
             }
         }
