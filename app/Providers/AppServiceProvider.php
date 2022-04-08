@@ -2,9 +2,10 @@
 
 namespace App\Providers;
 
-//use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Routing\UrlGenerator;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -15,7 +16,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        //Redirección HTTPS para Heroku
+        if (env('REDIRECT_HTTPS')) {
+            $this->app['request']->server->set('HTTPS', true);
+        }
     }
 
     /**
@@ -25,8 +29,14 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //Configurar el Schema por defecto
-//        Schema::defaultStringLenght(191);
         Paginator::useBootstrap();
+
+        //Redirección HTTPS para Heroku
+        if (env('REDIRECT_HTTPS')) {
+            $url->formatScheme('https://');
+        }
+
+        //Configurar el Schema por defecto
+        Schema::defaultStringLength(191);
     }
 }

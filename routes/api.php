@@ -18,9 +18,15 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::group(['middleware' => ['cors']], function () {
+    // public routes
+    Route::post('/login', 'Auth\ApiAuthController@login')->name('login.api');
+    Route::post('/register','Auth\ApiAuthController@register')->name('register.api');
+    Route::post('/logout', 'Auth\ApiAuthController@logout')->name('logout.api');
+});
 
 /** Diputados */
-Route::get ('/diputados', 'APIController@getAllDiputados');
+Route::get ('/diputados', 'APIController@getAllDiputados')->middleware('auth:api');;
 Route::get ('/diputado/{id}', 'APIController@getDiputadoById');
 
 /** Votaciones */
