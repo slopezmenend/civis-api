@@ -33,7 +33,8 @@ class AppServiceProvider extends ServiceProvider
 
         //Redirección HTTPS para Heroku
         if (env('REDIRECT_HTTPS')) {
-            $url->formatScheme('https://');
+            \URL::forceScheme('https');
+            //$url->formatScheme('https://');
         }
 
         //Configurar el Schema por defecto
