@@ -26,7 +26,7 @@ Route::group(['middleware' => ['cors']], function () {
 });
 
 /** Diputados */
-Route::get ('/diputados', 'APIController@getAllDiputados')->middleware('auth:api');;
+Route::get ('/diputados', 'APIController@getAllDiputados');
 Route::get ('/diputado/{id}', 'APIController@getDiputadoById');
 
 /** Votaciones */
