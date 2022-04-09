@@ -42,16 +42,27 @@ class ImportarIntervencionesJob implements ShouldQueue
         //ahora creamos el objeto de avance para mostrar el progreso
         $this->avance = new Avance ('INTERVENCIONES_ST', 'INTERVENCIONES_AV', sizeof($data));
         $contador = 0;
+
         foreach ($data as $intervencion)
         {
-            dump (round($contador/sizeof($data),2));
-            //creamos la intervencion para cada registro
-            $int = Intervencion::createFromJSON ($intervencion);
+            // Si estamos en producción cargamos los últimos 2 meses únicamente por limitaciones de tamaño en BBDD (Heroku)
+            $year = substr($intervencion['SESION'], 6 ,4);
+            $month = substr ($intervencion['SESION'], 3 ,2);
 
+            //dump ("Intervencion ", $year, $month);
+            //dump (\App::environment('local'));
+
+            $cargar = \App::environment('local') ||
+                    ($year == '2022') && (($month == '04') || ($month == '05'));
+
+            if ($cargar) {
+                //creamos la intervencion para cada registro
+                $int = Intervencion::createFromJSON ($intervencion);
+            }
             //avanzamos el avance
             $this->avance->avanzar($contador = $contador + 1);
 
-            //dump ($contador, $int);
+                //dump ($contador, $int);
         }
 
 

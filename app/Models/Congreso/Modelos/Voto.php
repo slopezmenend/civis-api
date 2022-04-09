@@ -24,7 +24,7 @@ class Voto extends Model
         $voto = Voto::where('votacion_id', $id)->where('diputado_id', $diputado_id)->first();
         if ($voto!=null)
         {
-            dump ("No creamos el voto porque ya existía ", $id, $diputado_id);
+            //dump ("No creamos el voto porque ya existía ", $id, $diputado_id);
             return $voto;
         }
 
@@ -35,7 +35,7 @@ class Voto extends Model
 
         $voto->save();
 
-        dump ("Creado voto");
+        //dump ("Creado voto");
         return $voto;
     }
 

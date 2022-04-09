@@ -104,7 +104,7 @@ class Diputado extends Model
         //en muchos puntos de las referencias del congreso aparece "Fernandez, Juan (GMx)" en lugar de "Fernandez, Juan"
         //con esto eliinamos esa posibilidad.
         $nombre = explode('(', $nombrecompleto)[0];
-        dump ("------- FIND OR CREATE ------");
+        //dump ("------- FIND OR CREATE ------");
         $obj = Diputado::where('nombrecompleto', $nombre)->first();
         if (($nombre== '') || ($nombre ==' ')) { dump ("Devuelto diputado", $obj); return null;}
 
@@ -114,19 +114,21 @@ class Diputado extends Model
 
             ]);*/
 
-        dump ($nombre);
+        //dump ($nombre);
         //dump ($obj);
 
-        if (isset($obj->id)) { dump ("encontrado diputado", $obj->id); return $obj;}
+        if (isset($obj->id)) {
+            //dump ("encontrado diputado", $obj->id);
+            return $obj;}
         else
         {
-            dump ("crear diputado");
+//            dump ("crear diputado");
             $diputado = new Diputado ();
             $diputado->nombrecompleto = $nombre;
             dump ($diputado);
             return $diputado;
         }
-        dump ("-------------");
+//        dump ("-------------");
     }
 
     public static function createFromJSON ($data)
@@ -140,7 +142,7 @@ class Diputado extends Model
         //la intervención ya existía así que no se crea
         if ($diputado != null)
         {
-            dump ("No creamos diputado porque ya existía ");
+            //dump ("No creamos diputado porque ya existía ");
             return $diputado;
         }
 
@@ -179,7 +181,7 @@ class Diputado extends Model
 
         $diputado->save();
 
-        dump ("Creado diputado:", $diputado->nombrecompleto);
+        //dump ("Creado diputado:", $diputado->nombrecompleto);
         return $diputado;
     }
 }

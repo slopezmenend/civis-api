@@ -41,7 +41,7 @@ class Votacion extends Model
 
         if ($votacion_b != null)
         {
-            dump ("No creamos votación porque ya existía ", $sesion, $numeroVotacion);
+            //dump ("No creamos votación porque ya existía ", $sesion, $numeroVotacion);
             return $votacion_b;
         }
 
@@ -60,7 +60,7 @@ class Votacion extends Model
 
         $votacion->save();
 
-        dump ("Creada votacion");
+        //dump ("Creada votacion");
         return $votacion;
     }
 }

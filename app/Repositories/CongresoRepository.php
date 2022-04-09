@@ -187,6 +187,7 @@ private function convertir_sql2json_date ($date)
             "circunscripciones" => Circunscripcion::count()
         );
 
+        //dump ("Avance votaciones: ", $data['votaciones']['porcentaje']);
         return $data;
     }
 

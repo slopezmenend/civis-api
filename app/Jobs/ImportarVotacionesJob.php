@@ -176,7 +176,10 @@ class ImportarVotacionesJob implements ShouldQueue
         if (($fecha == null) || ($fecha == '00/00/0000'))
         {
             $date = new \DateTime();
-            $date->setDate(2019, 12, 3);
+            if (\App::environment('local'))
+                $date->setDate(2019, 12, 3);
+            else
+                $date->setDate(2022, 4, 1);
         }
         else
         {
@@ -185,21 +188,22 @@ class ImportarVotacionesJob implements ShouldQueue
         //$date = $fecha;
         //dump ($date);
 
-        $enddate = new \DateTime();
-        $enddate->setDate(2022, 3, 26);
+        /*$enddate = new \DateTime();
+        $enddate->setDate(2022, 3, 26);*/
+        $enddate = now();
         //$enddate = date_create()->format('Y-m-d');
         //dump ($enddate);
 
         //$i = 0;
         //echo "<ol>";
-        dump($date);
-        dump($enddate);
+        //dump($date);
+        //dump($enddate);
 
         $contador = 0;
         $total = date_diff($enddate, $date)->format('%a');;
         $error = false;
 
-        dump ($total);
+        //dump ($total);
         //ahora creamos el objeto de avance para mostrar el progreso
         $this->avance = new Avance ('VOTACIONES_ST', 'VOTACIONES_AV', $total);
 
@@ -262,8 +266,9 @@ class ImportarVotacionesJob implements ShouldQueue
     public function failed(Throwable $exception)
     {
         // Send user notification of failure, etc...
-        //$avance = new Avance ('VOTACIONES_ST', 'VOTACIONES_AV', sizeof($data));
-        $this->avance->finalizar();
-        dump ($exception);
+        if (isset($this->avance))
+            $this->avance->finalizar();
+        //dump ($exception);
+        dump ("Proceso terminado por excepción");
     }
 }

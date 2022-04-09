@@ -378,7 +378,6 @@ class ImportarDiputadosJob implements ShouldQueue
     public function failed(Throwable $exception)
     {
         // Send user notification of failure, etc...
-        //$avance = new Avance ('INTERVENCIONES_ST', 'INTERVENCIONES_AV', sizeof($data));
         if (isset($this->avance))
             $this->avance->finalizar();
         //dump ($exception);
