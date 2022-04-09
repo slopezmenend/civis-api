@@ -18,9 +18,9 @@ class CreateIntervencionsTable extends Migration
             //$table->primary('id');
 
             $table->integer('legislatura')->unsigned()->nullable();
-            $table->text('objeto')->default('');
+            $table->text('objeto')->nullable();;
             $table->date('sesion')->nullable();
-            $table->text('organo')->default('');
+            $table->text('organo')->nullable();;
             $table->string('fase')->default('');
             $table->string('tipoIntervencion')->default('');
             $table->integer('diputado_id')->unsigned()->nullable();
@@ -29,12 +29,12 @@ class CreateIntervencionsTable extends Migration
             $table->time('inicio')->nullable();
             $table->time('fin')->nullable();
 
-            $table->text('enlaceDiferido')->default('');
-            $table->text('enlaceDescargaDirecta')->default('');
-            $table->text('enlaceTextoIntegro')->default('');
-            $table->text('EnlacePDF')->default('');
+            $table->text('enlaceDiferido')->nullable();;
+            $table->text('enlaceDescargaDirecta')->nullable();;
+            $table->text('enlaceTextoIntegro')->nullable();;
+            $table->text('EnlacePDF')->nullable();;
 
-            $table->text('enlaceSubtitles')->default('');
+            $table->text('enlaceSubtitles')->nullable();;
 
             $table->timestamps();
 

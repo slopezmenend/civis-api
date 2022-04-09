@@ -104,23 +104,38 @@ class Diputado extends Model
         //en muchos puntos de las referencias del congreso aparece "Fernandez, Juan (GMx)" en lugar de "Fernandez, Juan"
         //con esto eliinamos esa posibilidad.
         $nombre = explode('(', $nombrecompleto)[0];
-
+        dump ("------- FIND OR CREATE ------");
         $obj = Diputado::where('nombrecompleto', $nombre)->first();
-        if (($nombre== '') || ($nombre ==' ')) { dump ($nombre, $nombrecompleto); return null;}
+        if (($nombre== '') || ($nombre ==' ')) { dump ("Devuelto diputado", $obj); return null;}
 
-        return isset($obj->id)? $obj : $diputado = Diputado::create (
+        /*return isset($obj->id)? $obj : $diputado = Diputado::create (
             [
             'nombrecompleto' => $nombre
-            ]) ;
+
+            ]);*/
+
+        dump ($nombre);
+        //dump ($obj);
+
+        if (isset($obj->id)) { dump ("encontrado diputado", $obj->id); return $obj;}
+        else
+        {
+            dump ("crear diputado");
+            $diputado = new Diputado ();
+            $diputado->nombrecompleto = $nombre;
+            dump ($diputado);
+            return $diputado;
+        }
+        dump ("-------------");
     }
 
     public static function createFromJSON ($data)
     {
-        dump ("Create from JSON: ", $data);
+        //dump ("Create from JSON: ", $data);
         $nombre = FormaterUtils::JSONValueOrEmpty ($data, 'NOMBRE');
-        dump ("Nombre: ", $nombre);
+        //dump ("Nombre: ", $nombre);
         $diputado = Diputado::where ('nombrecompleto', $nombre)->first();
-        dump ("Diputado buscado: ", $diputado);
+        //dump ("Diputado buscado: ", $diputado);
 
         //la intervención ya existía así que no se crea
         if ($diputado != null)
@@ -132,12 +147,12 @@ class Diputado extends Model
         $diputado = new Diputado ();
 //        $intervencion->diputado_id = null;//FormaterUtils::JSONValueOrNull (Diputado::findOrCreate ($data, 'ORADOR')->id);
         $diputado->nombrecompleto =  $nombre;
-        dump ("Nombre completo ", $diputado->nombrecompleto);
+        //dump ("Nombre completo ", $diputado->nombrecompleto);
         try{
             $trozos = explode(',', $nombre);
             $diputado->nombre = $trozos[1];
             $diputado->apellidos = $trozos[0];
-            dump ("Nombre y apellidos ", $diputado->nombre, $diputado->apellidos);
+            //dump ("Nombre y apellidos ", $diputado->nombre, $diputado->apellidos);
         }catch (Exception $e)
         {
             $diputado->nombre = '';
@@ -147,11 +162,11 @@ class Diputado extends Model
 //        sexo_id =
 //        estadocivil_id =
         $diputado->circunscripcion_id = Circunscripcion::findOrCreate (FormaterUtils::JSONValueOrNull ($data, 'CIRCUNSCRIPCION'))->id;
-        dump ("Circunscripcion", $diputado->circunscripcion_id);
+        //dump ("Circunscripcion", $diputado->circunscripcion_id);
         $diputado->partido_id = Partido::findOrCreate (FormaterUtils::JSONValueOrNull ($data, 'FORMACIONELECTORAL'))->id;
-        dump ("Partido", $diputado->partido_id);
+        //dump ("Partido", $diputado->partido_id);
         $diputado->grupo_id = Grupo::findOrCreate (FormaterUtils::JSONValueOrNull ($data, 'GRUPOPARLAMENTARIO'))->id;
-        dump ("Grupo", $diputado->grupo_id);
+        //dump ("Grupo", $diputado->grupo_id);
         //$diputado->circunscripcion =  FormaterUtils::JSONValueOrEmpty ($data, 'CIRCUNSCRIPCION');
         //$diputado->formacionelectoral =  FormaterUtils::JSONValueOrEmpty ($data, 'FORMACIONELECTORAL');
         $diputado->fechacondicionplena =  FormaterUtils::convertir_json2sql_date (FormaterUtils::JSONValueOrNull ($data, 'FECHACONDICIONPLENA'));
@@ -164,7 +179,7 @@ class Diputado extends Model
 
         $diputado->save();
 
-        dump ("Creado diputado:", $diputado);
+        dump ("Creado diputado:", $diputado->nombrecompleto);
         return $diputado;
     }
 }

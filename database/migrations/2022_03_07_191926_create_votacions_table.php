@@ -26,7 +26,7 @@ class CreateVotacionsTable extends Migration
 			$table->integer('numeroVotacion')->unsigned()->nullable();
 			$table->date('fecha')->nullable();
 			$table->string('titulo')->default('');
-			$table->text('textoExpediente')->default('');
+			$table->text('textoExpediente');
 
 			/*
 			 * Datos totales

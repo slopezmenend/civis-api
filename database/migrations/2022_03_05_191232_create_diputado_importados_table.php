@@ -23,11 +23,11 @@ class CreateDiputadoImportadosTable extends Migration
             $table->date('fechaalta')->nullable();
             $table->string('grupoparlamentario')->default('');
             $table->date('fechaaltagrupo')->nullable();
-            $table->text('biografia')->default('');
+            $table->text('biografia')->nullable();
             $table->integer('numero')->unsigned()->nullable();
-            $table->string('urlperfil')->default('');
-            $table->string('urlfoto')->default('');
-            $table->string('urlescaño')->default('');
+            $table->text('urlperfil')->nullable();
+            $table->text('urlfoto')->nullable();
+            $table->text('urlescaño')->nullable();
             $table->string('email')->default('');
             $table->string('twitter')->default('');
             $table->string('facebook')->default('');

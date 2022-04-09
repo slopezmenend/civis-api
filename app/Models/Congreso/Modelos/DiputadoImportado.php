@@ -78,10 +78,19 @@ class DiputadoImportado extends Model
         $nombre = explode('(', $nombrecompleto)[0];
         $obj = DiputadoImportado::where('nombre', $nombre)->first();
 
-        return isset($obj->id)? $obj : $diputado = Diputado::create (
+        if (isset($obj->id)) {
+            return $obj;
+        }
+        else {
+            $diputado = new DiputadoImportado ();
+            $diputado->nombre = $nombre;
+            $diputado->save();
+            return $diputado;
+        }
+        /*return isset($obj->id)? $obj : $diputado = Diputado::create (
             [
             'nombre' => $nombre
-            ]) ;
+            ]) ;*/
     }
 
 }

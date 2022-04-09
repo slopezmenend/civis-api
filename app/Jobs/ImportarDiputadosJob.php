@@ -302,6 +302,7 @@ class ImportarDiputadosJob implements ShouldQueue
 
             if ($nombrecompleto != '')
             {
+                //dump ("Importado html con nombre completo: ", $nombrecompleto);
                 $dipu_imp = DiputadoImportado::findOrCreate ($nombrecompleto);
                 $dipu = Diputado::findOrCreate ($nombrecompleto);
 
@@ -333,6 +334,7 @@ class ImportarDiputadosJob implements ShouldQueue
                 $mod = $mod && $this->auxCompareField($dipu_imp, $dipu, 'instagram');
                 $mod = $mod && $this->auxCompareField($dipu_imp, $dipu, 'youtube');
                 $mod = $mod && $this->auxCompareField($dipu_imp, $dipu, 'webpersonal');*/
+                //dump ($dipu);
                 $dipu->numero = $dipu_imp->numero;
                 $dipu->urlperfil = $dipu_imp->urlperfil;
                 $dipu->urlfoto = $dipu_imp->urlfoto;
@@ -343,7 +345,7 @@ class ImportarDiputadosJob implements ShouldQueue
                 $dipu->instagram = $dipu_imp->instagram;
                 $dipu->youtube = $dipu_imp->youtube;
                 $dipu->webpersonal = $dipu_imp->webpersonal;
-
+                //dd($dipu);
                 $dipu->save();
 
             }
@@ -361,7 +363,7 @@ class ImportarDiputadosJob implements ShouldQueue
     {
         //$this->congresoRepository->setImportarDiputados(true);
         dump ('Importando diputados JSON');
-        //$this->importar_diputados();
+        $this->importar_diputados();
         dump ('Importando diputados HTML');
         $this->importar_diputados_html();
         //$this->congresoRepository->setImportarDiputados(false);

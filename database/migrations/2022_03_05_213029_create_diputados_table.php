@@ -16,9 +16,9 @@ class CreateDiputadosTable extends Migration
         Schema::create('diputados', function (Blueprint $table) {
             $table->increments('id')->unsigned();
             //$table->primary('id');
-            $table->string('nombrecompleto')->defalut('');
-            $table->string('nombre')->defalut('');
-            $table->string('apellidos')->defalut('');
+            $table->string('nombrecompleto')->default('');
+            $table->string('nombre')->default('');
+            $table->string('apellidos')->default('');
             $table->integer('sexo_id')->unsigned()->nullable();
             $table->foreign('sexo_id')->references('id')->on('sexos')->onDelete('cascade');
             $table->integer('estadocivil_id')->unsigned()->nullable();
@@ -33,11 +33,11 @@ class CreateDiputadosTable extends Migration
             $table->date('fechaalta')->nullable();
             //$table->string('grupoparlamentario');
             $table->date('fechaaltagrupo')->nullable();
-            $table->longText('biografia')->default('');
+            $table->text('biografia')->nullable();
             $table->integer('numero')->unsigned()->nullable();
-            $table->string('urlperfil')->default('');
-            $table->string('urlfoto')->default('');
-            $table->string('urlescaño')->default('');
+            $table->text('urlperfil')->nullable();
+            $table->text('urlfoto')->nullable();
+            $table->text('urlescaño')->nullable();
             $table->string('email')->default('');
             $table->string('twitter')->default('');
             $table->string('facebook')->default('');
