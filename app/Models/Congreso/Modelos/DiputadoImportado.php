@@ -84,6 +84,7 @@ class DiputadoImportado extends Model
         else {
             $diputado = new DiputadoImportado ();
             $diputado->nombre = $nombre;
+            $diputado->fechaimp = now();
             $diputado->save();
             return $diputado;
         }

@@ -34,7 +34,7 @@ class CreateDiputadoImportadosTable extends Migration
             $table->string('instagram')->default('');
             $table->string('youtube')->default('');
             $table->string('webpersonal')->default('');
-            $table->date('fechaimp')->default(\DB::raw('CURRENT_TIMESTAMP'));
+            $table->date('fechaimp')->nullable();
             $table->boolean('revisado')->default(false);
             $table->timestamps();
         });
