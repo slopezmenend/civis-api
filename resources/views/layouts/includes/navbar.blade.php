@@ -15,10 +15,9 @@
                     Diputados
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="/diputados/log">Log Estado</a>
-                    <a class="dropdown-item" href="/diputados/importar">Importar</a>
-                    <a class="dropdown-item" href="/diputados/revisar">Revisar</a>
-                    <a class="dropdown-item" href="/diputados">Consultar</a>
+                    <a class="dropdown-item" href="{{ route('diputados.index') }}">Creados</a>
+                    <a class="dropdown-item" href="{{ route('diputados.importar') }}">Importar</a>
+                    <a class="dropdown-item" href="{{ route('diputados.revisar') }}">Revisar</a>
                 </div>
             </li>
             <li class="nav-item dropdown">
@@ -27,9 +26,8 @@
                     Votaciones
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="/votaciones/log">Log Estado</a>
-                    <a class="dropdown-item" href="/votaciones/importar">Importar</a>
-                    <a class="dropdown-item" href="/votaciones">Consultar</a>
+                    <a class="dropdown-item" href="{{ route('votaciones.index') }}">Creadas</a>
+                    <a class="dropdown-item" href="{{ route('votaciones.importar') }}">Importar</a>
                 </div>
             </li>
             <li class="nav-item dropdown">
@@ -38,9 +36,9 @@
                     Intervenciones
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="/intervenciones/log">Log Estado</a>
-                    <a class="dropdown-item" href="/intervenciones/importar">Importar</a>
-                    <a class="dropdown-item" href="/intervenciones">Consultar</a>
+                    <a class="dropdown-item" href="{{ route('intervenciones.index') }}">Creados</a>
+                    <a class="dropdown-item" href="{{ route('intervenciones.importar') }}">Importar</a>
+                    <a class="dropdown-item" href="{{ route('intervenciones.revisar') }}">Revisar</a>
                 </div>
             </li>
             <li class="nav-item dropdown">

@@ -9,26 +9,28 @@
             <div class="row justify-content-md-left pb-2">
                 <a href="{{ route('votaciones.show', $votacion) }}" type="button" class="col-2 btn btn-info">Volver</a>
             </div>
-            <table class="table table-striped w-100">
-                <thead>
-                    <tr class="table-info">
-                        <th scope="col">#</th>
-                        <th scope="col">Diputado</th>
-                        <th scope="col">Partido</th>
-                        <th scope="col">Voto</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($votos as $voto)
-                        <tr>
-                            <td scope="row">{{ $voto->id }}</td>
-                            <td>{{ $voto->diputado()->nombrecompleto }}</td>
-                            <td>{{ $voto->diputado()->partido() }}</td>
-                            <td>{{ $voto->voto }}</td>
+            <div class="table-responsive">
+                <table class="table table-striped w-100">
+                    <thead>
+                        <tr class="table-info">
+                            <th scope="col">#</th>
+                            <th scope="col">Diputado</th>
+                            <th scope="col">Partido</th>
+                            <th scope="col">Voto</th>
                         </tr>
-                    @endforeach
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        @foreach ($votos as $voto)
+                            <tr>
+                                <td scope="row">{{ $voto->id }}</td>
+                                <td>{{ $voto->diputado()->nombrecompleto }}</td>
+                                <td>{{ $voto->diputado()->partido() }}</td>
+                                <td>{{ $voto->voto }}</td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
             <div class="d-flex">
                 {!! $votos->links() !!}
             </div>
