@@ -5,13 +5,13 @@
         <div class="card-header d-flex justify-content-between">
             <h4>Listado grupos</h4>
             <!--<form action="search" method="GET">
-                                                                                            <input type="text" name="search" required />
-                                                                                            <button type="submit">Buscar</button>
-                                                                                        </form>-->
+                                                                                                <input type="text" name="search" required />
+                                                                                                <button type="submit">Buscar</button>
+                                                                                            </form>-->
             <a href="{{ route('grupos.create') }}" type="button" class="btn btn-primary">Crear</a>
         </div>
         <div class="card-body">
-            <table class="table table-striped">
+            <table class="table table-striped w-100">
                 <thead>
                     <tr>
                         <th scope="col">#</th>

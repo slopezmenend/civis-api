@@ -5,12 +5,12 @@
         <div class="card-header">
             <h4>Listado Intervenciones</h4>
             <!--<form action="search" method="GET">
-                                                                                    <input type="text" name="search" required />
-                                                                                    <button type="submit">Buscar</button>
-                                                                                </form>-->
+                                                                                        <input type="text" name="search" required />
+                                                                                        <button type="submit">Buscar</button>
+                                                                                    </form>-->
         </div>
         <div class="card-body">
-            <table class="table table-striped">
+            <table class="table table-striped w-100">
                 <thead>
                     <tr>
                         <th scope="col">#</th>

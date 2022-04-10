@@ -60,6 +60,7 @@ public static function get_enlaces ($base, $class, $pattern, $prefijo = true)
 
                 if (!$patternfound)
                 {
+                    dump ("Comprobando enlace: ", $aattribute->nodeValue);
                     $athref = HTMLUtils::checkAttribute ($aattribute, 'href', $pattern);
                     $patternfound = $athref != null;
                 }
@@ -67,7 +68,7 @@ public static function get_enlaces ($base, $class, $pattern, $prefijo = true)
 
             if ($classfound && $patternfound)
             {
-                //dump ("Añadiendo enlace: ", $athref, $enlaces);
+                dump ("Añadiendo enlace: ", $athref, $enlaces);
                 array_push($enlaces, $pref . $athref);
             }
         }

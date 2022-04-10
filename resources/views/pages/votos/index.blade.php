@@ -9,7 +9,7 @@
             <div class="row justify-content-md-left pb-2">
                 <a href="{{ route('votaciones.show', $votacion) }}" type="button" class="col-2 btn btn-info">Volver</a>
             </div>
-            <table class="table table-striped ">
+            <table class="table table-striped w-100">
                 <thead>
                     <tr class="table-info">
                         <th scope="col">#</th>

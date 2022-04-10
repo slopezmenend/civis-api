@@ -6,7 +6,7 @@
             <h1>Consulta votaciones</h1>
         </div>
         <div class="card-body">
-            <table class="table table-striped ">
+            <table class="table table-striped w-100">
                 <thead>
                     <tr class="table-info">
                         <th scope="col">#</th>
