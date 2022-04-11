@@ -24,4 +24,38 @@ class EstadoCivil extends Model
         dump ($dip);
         return $dip;
     }
+
+    public static function findOrCreate ($sexo_id, $nombre_estado)
+    {
+        //$sexo = Sexo::where ('nombre', $nombre_sexo);
+        $estado = EstadoCivil::where ('nombre', $nombre_estado)->where('sexo_id', $sexo_id);
+        dump ("buscando estado:", $nombre_estado);
+        if (isset($estado->id))   dump ($estado->id);
+        else dump ("No encontrado");
+
+        if (!isset($estado->id))
+        {
+            $estado = new EstadoCivil();
+            $estado->sexo_id = $sexo_id;
+            $estado->nombre = $nombre_estado;
+            $estado->save();
+            dump ("creado estado civil ", $estado);
+        }
+
+        return $estado;
+    }
+
+    public static function inicializar()
+    {
+        dump ("estado civil inicializar");
+        EstadoCivil::findOrCreate (1, 'Soltero');
+        EstadoCivil::findOrCreate (1, 'Casado');
+        EstadoCivil::findOrCreate (1, 'Divorciado');
+        EstadoCivil::findOrCreate (1, 'Viudo');
+        //EstadoCivil::findOrCreate ('Mujer');
+        EstadoCivil::findOrCreate (2, 'Soltera');
+        EstadoCivil::findOrCreate (2, 'Casada');
+        EstadoCivil::findOrCreate (2, 'Divorciada');
+        EstadoCivil::findOrCreate (2, 'Viuda');
+    }
 }

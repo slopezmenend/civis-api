@@ -17,4 +17,30 @@ class Sexo extends Model
         dump ($ec);
         return $ec;
     }
+
+    public static function findOrCreate ($nombre)
+    {
+        $sexo = Sexo::where ('nombre', $nombre);
+        dump ("buscando sexo:", $nombre);
+        if (isset($sexo->id))   dump ($sexo->id);
+        else dump ("No encontrado");
+        if (!isset($sexo->id))
+        {
+            $sexo = new Sexo();
+            $sexo->nombre = $nombre;
+            $sexo->save();
+            //dump ("creado sexo ", $sexo);
+        }
+        return $sexo;
+    }
+
+    public static function inicializar()
+    {
+        if (Sexo::count() == 0)
+        {
+            Sexo::findOrCreate ('Hombre');
+            Sexo::findOrCreate ('Mujer');
+        }
+    }
+
 }
