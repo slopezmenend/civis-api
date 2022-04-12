@@ -26,18 +26,18 @@ Route::group(['middleware' => ['cors']], function () {
 });
 
 /** Diputados */
-Route::get ('/diputados', 'APIController@getAllDiputados');
-Route::get ('/diputado/{id}', 'APIController@getDiputadoById');
+Route::get ('/diputados', 'APIController@getAllDiputados')->middleware('auth:api');
+Route::get ('/diputado/{id}', 'APIController@getDiputadoById')->middleware('auth:api');
 
 /** Votaciones */
-Route::get ('/votaciones', 'APIController@getAllVotacionesSummary');
-Route::get ('/votaciones/date/{date}', 'APIController@getVotacionesSummaryByDate');
-Route::get ('/votaciones/diputado/{id}', 'APIController@getVotacionesSumaryByDiputadoId');
-Route::get ('/votacion/{id}', 'APIController@getVotacionDetail');
-Route::get ('/votacion/votos/{id}', 'APIController@getVotacionDetailVotos');
+Route::get ('/votaciones', 'APIController@getAllVotacionesSummary')->middleware('auth:api');
+Route::get ('/votaciones/date/{date}', 'APIController@getVotacionesSummaryByDate')->middleware('auth:api');
+Route::get ('/votaciones/diputado/{id}', 'APIController@getVotacionesSumaryByDiputadoId')->middleware('auth:api');
+Route::get ('/votacion/{id}', 'APIController@getVotacionDetail')->middleware('auth:api');
+Route::get ('/votacion/votos/{id}', 'APIController@getVotacionDetailVotos')->middleware('auth:api');
 
 /** Intervenciones */
-Route::get ('/intervenciones', 'APIController@getAllIntervenciones');
-Route::get ('/intervenciones/date/{date}', 'APIController@getIntervencionesByDate');
-Route::get ('/intervenciones/diputado/{id}', 'APIController@getIntervencionByDiputadoId');
-Route::get ('/intervencion/{id}', 'APIController@getIntervencion');
+Route::get ('/intervenciones', 'APIController@getAllIntervenciones')->middleware('auth:api');
+Route::get ('/intervenciones/date/{date}', 'APIController@getIntervencionesByDate')->middleware('auth:api');
+Route::get ('/intervenciones/diputado/{id}', 'APIController@getIntervencionByDiputadoId')->middleware('auth:api');
+Route::get ('/intervencion/{id}', 'APIController@getIntervencion')->middleware('auth:api');
