@@ -1,64 +1,45 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
-
 <p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+	<a href="https://civis-api.herokuapp.com/public" target="_blank">
+		<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/Spanish_Congress_of_Deputies_after_2004_election.png/160px-Spanish_Congress_of_Deputies_after_2004_election.png" width="400">
+	</a>
 </p>
 
-## About Laravel
+## Sobre Civis-API
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Civis-API nace como <abbr title="Trabajo Fin de Master">TFM</abbr> de un alumno de la <abbr title="Universitat Oberta de Catalunya">UOC</abbr>.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## ¿No tenemos ya un opendata del Congreso de los diputados?¿Por qué esta API?
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+La principal razón de crear esta API, aparte del propio <abbr title="Trabajo Fin de Master">TFM</abbr>, es precisamente generar una verdadera API de datos públicos (no oficial).
 
-## Learning Laravel
+Si vamos a la <a href="https://www.congreso.es/datos-abiertos">Web de Datos Abiertos del Congreso de los Diputados</a> veremos que tenemos varias opciones y cada una con sus rarezas/problemas:
+- Votaciones: No hay un endpoint para acceder directamente a votaciones sino que tienes que seleccionar en un calendario la fecha, para luego abrir en un árbol el tipo de proposición votada para luego acceder a un fichero de cada votación.
+	+ ¿No tendría más sentido un endpoint/varios endpoints y que puedas recuperar fácilmente los votos de un diputado, de un día, etc?
+- Diputados y diputadas: Tenemos un fichero por legislatura con datos parciales que cambia de nombre diariamente. Por ejemplo los datos de biografía en el perfil html del listado de diputados y en el json de diputados activos no son iguales, en el json no están incluidas las redes sociales del diputado, etc. Mucha de esta información además no es reutilizable (PDFs).
+	+ ¿No tiene sentido que podamos acceder directamente a los datos de un diputado de forma centralizada y completa?¿Que tengamos todos sus datos como accesibles y reutilizables?
+- Intervenciones: Hay un único fichero generado diariamente, con nombres distintos, con todas las intervenciones de la legislatura. Esto quiere decir que para ver las últimas intervenciones te tienes que descargar un fichero de 50/60Mb.
+	+ ¿No tendría sentido que endpoint sea fijo?
+	+ ¿No sería lo lógico que podamos buscar las intervenciones de una fecha o de un diputado concreto?
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## ¿Y cómo puedo usarlo?
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+Civis-API tiene una página asociada en la siguiente <a href="https://civis-api.herokuapp.com/public">URL</a> donde podrás registrarte.
 
-## Laravel Sponsors
+Una vez que creamos un usuario en nuestro perfil podremos ver un Token que tendremos que añadir como autentificación en nuestras peticiones a los endpoints y acceder a la consulta que queramos.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+## ¿Cómo se obtiene la información de la API?
 
-### Premium Partners
+Una vez registrado en la <a href="https://civis-api.herokuapp.com/public">página de Civis-API</a> podremos revisar mediante una web tipo Dashboard los datos que maneja la API importando nuevos datos, actualizando los existentes, etc lo que transforma esta API en una herramienta colaborativa.
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+## Puntos abiertos
 
-## Contributing
+Como esta API ha nacido dentro de un <abbr title="Trabajo Fin de Master">TFM</abbr> ha nacido también con unos requerimientos de tiempos acotados.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Esto ha forzado que no toda la información:
+- La generación de endpoints para la consulta de iniciativas no se ha abordado. Son necesarios porque se generan diariamente ficheros desagregados por tipo de forma diaria y no relaccionados con intervenciones, diputados, etc.
+- Ampliación de información de diputados de cara a inclusión de la declaración de bienes (PDFs parciales en el perfil del propio diputado), Intereses económicos, diputados de legislaturas anteriores y cargos o pertenencia a órganos de gobierno.
+- Creación de tipos de usuario para la administración/colaboración/consulta en lugar de un único tipo de usuario.
 
-## Code of Conduct
+## Licencia
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Esta obra está sujeta a una licencia de Reconocimiento-NoComercial <a href="https://creativecommons.org/licenses/by-nc/3.0/es/">3.0 España de Creative Commons</a>
