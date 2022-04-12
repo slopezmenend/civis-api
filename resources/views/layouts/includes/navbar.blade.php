@@ -17,7 +17,7 @@
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item" href="{{ route('diputados.index') }}">Creados</a>
                     <a class="dropdown-item" href="{{ route('diputados.importar') }}">Importar</a>
-                    <a class="dropdown-item" href="{{ route('diputados.review.index') }}">Revisar</a>
+                    <a class="dropdown-item" href="{{ route('importar-diputados.index') }}">Revisar</a>
                 </div>
             </li>
             <li class="nav-item dropdown">

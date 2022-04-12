@@ -20,7 +20,7 @@
                 <div class="form-group">
                     <label for="partido">Partido</label>
                     <input type="text" class="form-control" id="partido" aria-describedby="partidoHelp"
-                        placeholder="Sin valor para partido" value='{{ $diputado->partido }}' readonly>
+                        placeholder="Sin valor para partido" value='{{ $diputado->formacionelectoral }}' readonly>
 
                 </div>
                 <div class="form-group">
@@ -37,7 +37,7 @@
                 <div class="form-group">
                     <label for="grupo">Grupo</label>
                     <input type="text" class="form-control" id="grupo" aria-describedby="grupoHelp"
-                        placeholder="Sin valor para grupo" value='{{ $diputado->grupo }}' readonly>
+                        placeholder="Sin valor para grupo" value='{{ $diputado->grupoparlamentario }}' readonly>
                 </div>
                 <div class="form-group">
                     <label for="biografia">Biografia</label>

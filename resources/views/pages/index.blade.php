@@ -41,7 +41,7 @@
                 </div>
 
                 <div class="card">
-                    <a href="{{ route('diputados.review.index') }}" class="text-decoration-none">
+                    <a href="{{ route('importar-diputados.index') }}" class="text-decoration-none">
                         <div class="card-body">
                             <div class="media d-flex">
                                 <div class="align-self-center">

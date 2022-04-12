@@ -5,9 +5,9 @@
         <div class="card-header">
             <h4>Listado Diputados a revisar</h4>
             <!--<form action="search" method="GET">
-                                                                                            <input type="text" name="search" required />
-                                                                                            <button type="submit">Buscar</button>
-                                                                                        </form>-->
+                                                                                                <input type="text" name="search" required />
+                                                                                                <button type="submit">Buscar</button>
+                                                                                            </form>-->
         </div>
         <div class="card-body p-0">
             <div class="table-responsive">
@@ -29,10 +29,10 @@
                                 <td>{{ $diputado->circunscripcion }}</td>
                                 <td>{{ $diputado->partido }}</td>
                                 <td>
-                                    <a href="{{ route('diputados.review.show', $diputado) }}" type="button"
+                                    <a href="{{ route('importar-diputados.show', $diputado) }}" type="button"
                                         class="btn btn-primary">Ver
                                         datos importados</a>
-                                    <a href="{{ route('diputados.review.edit', $diputado) }}" type="button"
+                                    <a href="{{ route('importar-diputados.edit', $diputado) }}" type="button"
                                         class="btn btn-primary">Revisar</a>
                                 </td>
                             </tr>

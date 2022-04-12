@@ -77,7 +77,7 @@
                 </div>
                 <div class="form-group">
                     <label for="fechacondicionplenaimp">Fecha cond. plena importada</label>
-                    <input type="text" class="form-control" name="fechacondicionplenaimp" id="fechacondicionplenaimp"
+                    <input type="date" class="form-control" name="fechacondicionplenaimp" id="fechacondicionplenaimp"
                         aria-describedby="fechacondicionplenaimpHelp" placeholder="Introduzca fecha condicion plena"
                         value='{{ $diputado_imp->fechacondicionplena }}' readonly>
                 </div>

@@ -37,26 +37,30 @@ class DiputadoImportadoController extends Controller
             ->with('success', 'Diputado '. $diputado->nombrecompleto . ' creado correctamente.');
     }*/
 
-    public function show(DiputadoImportado $diputado)
+    public function show(DiputadoImportado $importar_diputado)
     {
-        dd($diputado);
+        //dd($importar_diputado);
+        $diputado = $importar_diputado;
         return view ('pages.diputados.review.show', compact('diputado'));
     }
 
-    public function edit(DiputadoImportado $diputado_imp)
+    public function edit(DiputadoImportado $importar_diputado)
     {
-        $diputado = Diputado::find($id);
+        $diputado = Diputado::find($importar_diputado->id);
         //$diputado_imp = DiputadoImportado::find($id);
+        $diputado_imp = $importar_diputado;
         $partidos = Partido::all();
         $circunscripciones = Circunscripcion::all();
         $grupos = Grupo::all();
         $sexos = Sexo::all();
         $estadosciviles = EstadoCivil::all();
+        //dump ($diputado_imp->grupoparlamentario);
         return view ('pages.diputados.review.edit', compact('diputado', 'diputado_imp', 'partidos', 'circunscripciones', 'grupos', 'sexos', 'estadosciviles'));
     }
 
-    public function update(Request $request, DiputadoImportado $diputado_imp)
+    public function update(Request $request, DiputadoImportado $importar_diputado)
     {
+        $diputado_imp = $importar_diputado;
         $diputado = Diputado::find($diputado_imp->id);
         $diputado->fechaimportado = $diputado_imp->updated_at;
         $diputado->fecharevision = now();
