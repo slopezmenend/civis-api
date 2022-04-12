@@ -20,7 +20,6 @@ class DiputadoController extends Controller
         return view ('pages.diputados.index', compact('diputados'));
     }
 
-
     /*public function store(Request $request)
     {
         $request->validate([
@@ -44,18 +43,12 @@ class DiputadoController extends Controller
 
     public function edit(Diputado $diputado)
     {
-        //$diputado = Diputado::find($id);// $this->congresoRepository->getDiputadoById($id);
         $partidos = Partido::all();
         $circunscripciones = Circunscripcion::all();
         $grupos = Grupo::all();
         $sexos = Sexo::all();
         $estadosciviles = EstadoCivil::all();
         return view ('pages.diputados.edit', compact('diputado', 'partidos', 'circunscripciones', 'grupos', 'sexos', 'estadosciviles'));
-
-        /*$partidos = Partido::all();
-        $circunscripciones = Circunscripcion::all();
-        $grupos = Grupo::all();
-        return view ('pages.diputados.edit', compact('diputado', 'partidos', 'circunscripciones', 'grupos'));*/
     }
 
     public function update(Request $request, Diputado $diputado)
@@ -72,6 +65,7 @@ class DiputadoController extends Controller
     public function destroy(Diputado $diputado)
     {
         $diputado->delete();
+        //dump ($diputado);
 
         return redirect()->route('diputados.index')
             ->with('success', 'Diputado '. $diputado->nombrecompleto . ' borrado correctamente');

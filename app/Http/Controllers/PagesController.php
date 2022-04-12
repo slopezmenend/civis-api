@@ -22,24 +22,15 @@ class PagesController extends Controller
     //Página de inicio
     public function index ()
     {
-//        $ndiputados = Diputado::all()->count();
-//        $ndiputadosrev = DiputadoImportado::where('revisado',false)->count();
-
-        try {
-            $summary = $this->congresoRepository->getSummaryData ();
-            return view ('pages.index', compact ('summary'));
-        }
-        catch (Exception $e)
-        {
-            $summary = '';
-            return view ('pages.index', compact ('summary'))->with('error', 'Se ha encontrado un error en la conexión a la BBDD');
-        }
+        $summary = $this->congresoRepository->getSummaryData ();
+        return view ('pages.index', compact ('summary'));
+    }
 
 
         //dd($summary);
 
-    }
-
+    //}
+/*
     public function diputado_edit($id)
     {
         $diputado = Diputado::find($id);// $this->congresoRepository->getDiputadoById($id);
@@ -57,7 +48,7 @@ class PagesController extends Controller
         /*$output = $diputado;
         if (is_array($output))
             $output = implode(',', $output);
-        echo "<script>console.log('Debug Objects: " . $output . "' ); setTimeout('', 5000);</script>";*/
+        echo "<script>console.log('Debug Objects: " . $output . "' ); setTimeout('', 5000);</script>";
 
         $request->validate([
             'nombrecompleto' => 'required'
@@ -70,7 +61,7 @@ class PagesController extends Controller
         fechacondicion = fechacondicion;
         fechaalta = fechaalta;
         grupo_id = grupo;
-        biografia = biografia;*/
+        biografia = biografia;
         $diputado->save();
 
         return redirect('/diputados')->with('success', 'Diputado actualizado correctamente');
@@ -159,7 +150,7 @@ class PagesController extends Controller
             return response()->json(['data' => $data ]);
         else
             return response()->json(['message' => 'Not Found!'], 404);
-    }
+    }*/
     /*public function importar_diputados ()
     {
         return view ('pages.diputados.importar');

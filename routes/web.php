@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\ResourceControllers\DiputadoImportadoController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -30,7 +32,7 @@ Route::get ('/', 'PagesController@index');
 /** Scripts */
 Route::get ('/votaciones/importar/', 'ScriptController@import_votaciones_job')->name("votaciones.importar");
 Route::get ('/diputados/importar/', 'ScriptController@import_diputados_job')->name('diputados.importar');
-Route::get ('/diputados/revisar/', 'ScriptController@importar_diputados')->name("diputados.revisar");
+//Route::get ('/diputados/revisar/', 'ScriptController@importar_diputados')->name("diputados.revisar");
 //Route::get ('/diputados/importarhtml/', 'ScriptController@importar_diputados_html')->name("diputados.importarhtml");
 Route::get ('/intervenciones/importar/', 'ScriptController@import_intervenciones_job')->name("intervenciones.importar");
 //Route::get ('/intervenciones/importar/', 'ScriptController@test')->name("intervenciones.importar");
@@ -40,6 +42,13 @@ Route::get ('/intervenciones/revisar/', 'ScriptController@importar_intervencione
 Route::resource('diputados', ResourceControllers\DiputadoController::class)->except(['store', 'destroy']);
 Route::get('diputados/{diputado}/delete', 'ResourceControllers\DiputadoController@destroy')->name("diputados.destroy");
 //Route::post('diputados/{diputado}', 'ResourceControllers\DiputadoController@update')->name("diputados.update");
+//Route::resource('review/diputados/', ResourceControllers\DiputadoImportadoController::class)->except(['store', 'destroy']);
+Route::get('diputado/review/{id}', 'ResourceControllers\DiputadoImportadoController@show')->name('diputados.review.show');
+Route::get('diputado/review/edit/{id}', 'ResourceControllers\DiputadoImportadoController@edit')->name('diputados.review.edit');
+Route::post('diputado/review/edit/{id}', 'ResourceControllers\DiputadoImportadoController@update')->name('diputados.review.update');
+Route::get('diputados/review', 'ResourceControllers\DiputadoImportadoController@index')->name('diputados.review.index');
+Route::resource('review/diputados/', ResourceControllers\DiputadoImportadoController::class)->except(['store', 'destroy']);
+//Route::get ('diputados/revisar', 'ResourceControllers\DiputadoController@index')->name('diputados.revisar');
 
 Route::resource('votaciones', ResourceControllers\VotacionController::class)->only(['index', 'show']);
 Route::get ('/votaciones/votos/{id}', 'ResourceControllers\VotoController@index')->name('votos.index');

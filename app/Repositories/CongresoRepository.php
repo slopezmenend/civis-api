@@ -46,7 +46,7 @@ private function convertir_sql2json_date ($date)
         //$this->status = Status::first();
     }
 
-    public function getAllDiputados()
+    /*public function getAllDiputados()
     {
         return Diputado::orderBy('nombrecompleto')->paginate(15);
     }
@@ -133,7 +133,7 @@ private function convertir_sql2json_date ($date)
             $obj->nombre = $nombre;
             /*$obj = Partido::create([
                 'nombre' => $nombre
-            ]);*/
+            ]);////FIN COMENTARIO
             dump ('Creamos en Find or Create Partido' , $obj);
             $obj->save();
         }
@@ -145,10 +145,11 @@ private function convertir_sql2json_date ($date)
     {
         //return $this->convertir_sql2json_date(Votacion::max('fecha'));
         return Votacion::max('fecha');
-    }
+    }*/
 
     public function getSummaryData ()
     {
+        try{
         $diputados_data = array (
             "creados" => Diputado::count(),
             "pendientes" => DiputadoImportado::where('revisado',false)->count(),
@@ -160,7 +161,7 @@ private function convertir_sql2json_date ($date)
         $votaciones_data = array (
             "votaciones" => Votacion::count(),
             "votos" => Voto::count(),
-            "fechaimp" => $this->convertir_sql2json_date(Votacion::max('created_at')),
+            "fechaimp" => $this->convertir_sql2json_date(Votacion::max('fecha')),
             "status" => Constante::findOrCreate('VOTACIONES_ST')->value,
             "porcentaje" => Constante::findOrCreate('VOTACIONES_AV')->value
         );
@@ -186,7 +187,46 @@ private function convertir_sql2json_date ($date)
             "grupos" => Grupo::count(),
             "circunscripciones" => Circunscripcion::count()
         );
+        } catch (Exception $e) {
+            $diputados_data = array (
+                "creados" => 0,
+                "pendientes" => 0,
+                "fechaimp" => "0000-00-00",
+                "status" => 0,
+                "porcentaje" => 0
+            );
 
+            $votaciones_data = array (
+                "votaciones" => 0,
+                "votos" => 0,
+                "fechaimp" => "0000-00-00",
+                "status" => 0,
+                "porcentaje" => 0
+            );
+            //dump ($votaciones_data);
+
+            $intervenciones_data = array (
+                "creados" => 0,
+                "pendientes" => 0,
+                "fechaimp" => "0000-00-00",
+                "status" => 0,
+                "porcentaje" => 0
+            );
+
+
+            //dump ($intervenciones_data);
+
+            $data = array (
+                //"status" => Status::first(),
+                "diputados" => $diputados_data,
+                "votaciones"  => $votaciones_data,
+                "intervenciones"   => $intervenciones_data,
+                "partidos" => 0,
+                "grupos" => 0,
+                "circunscripciones" => 0
+            );
+
+        }
         //dump ("Avance votaciones: ", $data['votaciones']['porcentaje']);
         return $data;
     }

@@ -34,7 +34,9 @@ class Diputado extends Model
                             'facebook',
                             'instagram',
                             'youtube',
-                            'webpersonal'];
+                            'webpersonal',
+                            'fechaimportado',
+                            'fecharevision'];
 
     public function circunscripcion ()
     {
@@ -66,6 +68,7 @@ class Diputado extends Model
 
     public function revisado()
     {
+        ///return $diputado->fecharevision != null;
         $diputado = DiputadoImportado::find($this->id);
 
         if ($diputado == null) return false;

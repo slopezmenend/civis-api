@@ -4,7 +4,7 @@ namespace App\Interfaces;
 
 interface CongresoRepositoryInterface
 {
-    public function getAllDiputados();
+/*    public function getAllDiputados();
     public function getDiputadoById($id);
     public function getDiputadoByName($nombre);
     public function getAllVotacionesSummary();
@@ -20,6 +20,7 @@ interface CongresoRepositoryInterface
     //findOrCreate functions
     public function findOrCreateCircunscripcion ($nombre);
     public function findOrCreateGrupo ($nombre);
-    public function findOrCreatePartido ($nombre);
+    public function findOrCreatePartido ($nombre);*/
+    public function getSummaryData ();
 }
 
