@@ -54,7 +54,7 @@ class ImportarIntervencionesJob implements ShouldQueue
     {
         $ruta    = 'https://www.congreso.es/opendata/intervenciones';
         $class   = 'btn btn-primary btn-vot';
-        $pattern = '*Cronologicamente*.json';
+        $pattern = '*Intervenciones*.json';
         $urls = HTMLUtils::get_enlaces ($ruta, $class, $pattern);
         foreach ($urls as $url)
         {
