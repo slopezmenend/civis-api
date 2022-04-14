@@ -66,6 +66,11 @@ Route::get('grupos/{grupo}/delete', 'ResourceControllers\Auxiliares\GrupoControl
 Route::resource('partidos', ResourceControllers\Auxiliares\PartidoController::class)->except(['destroy']);
 Route::get('partidos/{partido}/delete', 'ResourceControllers\Auxiliares\PartidoController@destroy')->name("partidos.destroy");
 
+Route::resource('estadosciviles', ResourceControllers\Auxiliares\EstadoCivilController::class);
+Route::get('estadosciviles/{estadocivil}/delete', 'ResourceControllers\Auxiliares\EstadoCivilController@destroy')->name("estadosciviles.destroy");
+
+Route::resource('sexos', ResourceControllers\Auxiliares\SexoController::class);
+Route::get('sexos/{sexo}/delete', 'ResourceControllers\Auxiliares\SexoController@destroy')->name("estadosciviles.destroy");
 
 Route::get('login', 'PagesController@login');
 Route::get('signup', 'PagesController@signup');
