@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use App\Interfaces\CongresoRepositoryInterface;
 
 use App\Models\Congreso\Modelos\Diputado;
+use App\Models\Congreso\Modelos\Voto;
+use App\Models\Congreso\Modelos\Votacion;
+use App\Models\Congreso\Modelos\Intervencion;
 use App\Models\Congreso\Modelos\Partido;
 use App\Models\Congreso\Modelos\Grupo;
 use App\Models\Congreso\Modelos\Circunscripcion;
@@ -32,7 +35,7 @@ class APIController extends Controller
 
     public function getDiputadoById($id)//: JsonResponse
     {
-        $data = $this->congresoRepository->getDiputadoById($id);
+        $data = Diputado::find($id);
         if ($data != null)
             return response()->json(['data' => $data ]);
         else
@@ -41,7 +44,7 @@ class APIController extends Controller
 
     public function getDiputadoByName($nombre)//: JsonResponse
     {
-        $data = $this->congresoRepository->getDiputadoByName($nombre);
+        $data = Diputado::where('nombrecompleto', $nombre)->first();
         if ($data != null)
             return response()->json(['data' => $data ]);
         else
@@ -50,7 +53,7 @@ class APIController extends Controller
 
     public function getAllVotacionesSummary()//: JsonResponse
     {
-        $data = $this->congresoRepository->getAllVotacionesSummary();
+        $data = Votaciones::all();
         if ($data != null)
             return response()->json(['data' => $data ]);
         else
@@ -59,7 +62,7 @@ class APIController extends Controller
 
     public function getVotacionesSummaryByDate($date)//: JsonResponse
     {
-        $data = $this->congresoRepository->getVotacionesSummaryByDate($date);
+        $data = Votacion::where('fecha', '=', $date)->get();
         if ($data != null)
             return response()->json(['data' => $data ]);
         else
@@ -69,7 +72,7 @@ class APIController extends Controller
     public function getVotacionDetail($id)
     //: JsonResponse
     {
-        $data = $this->congresoRepository->getVotacionDetail($id);
+        $data = Votacion::find($id);
         if ($data != null)
             return response()->json(['data' => $data ]);
         else
@@ -79,7 +82,7 @@ class APIController extends Controller
     public function getVotacionDetailVotos($id)
     //: JsonResponse
     {
-        $data = $this->congresoRepository->getVotacionDetailVotos($id);
+        $data = Voto::where('votacion_id', '=', $id)->get();
         if ($data != null)
             return response()->json(['data' => $data ]);
         else
@@ -88,7 +91,7 @@ class APIController extends Controller
 
     public function getVotacionesSumaryByDiputadoId ($id)//: JsonResponse
     {
-        $data = $this->congresoRepository->getVotacionesSumaryByDiputadoId ($id);
+        $data = Voto::where('diputado_id', '=', $id)->get();
         if ($data != null)
             return response()->json(['data' => $data ]);
         else
@@ -97,7 +100,7 @@ class APIController extends Controller
 
     public function getAllIntervenciones()//: JsonResponse
     {
-        $data = $this->congresoRepository->getAllIntervenciones();
+        $data = Intervencion::all();
         if ($data != null)
             return response()->json(['data' => $data ]);
         else
@@ -106,7 +109,7 @@ class APIController extends Controller
 
     public function getIntervencionesByDate($date)//: JsonResponse
     {
-        $data = $this->congresoRepository->getIntervencionesByDate($date);
+        $data = Intervencion::where('sesion', '=', $date)->get();
         if ($data != null)
             return response()->json(['data' => $data ]);
         else
@@ -115,7 +118,7 @@ class APIController extends Controller
 
     public function getIntervencion($id)//: JsonResponse
     {
-        $data = $this->congresoRepository->getIntervencion($id);
+        $data = Intervencion::find($id);
         if ($data != null)
             return response()->json(['data' => $data ]);
         else
@@ -124,7 +127,7 @@ class APIController extends Controller
 
     public function getIntervencionByDiputadoId ($id)//: JsonResponse
     {
-        $data = $this->congresoRepository->getIntervencionByDiputadoId($id);
+        $data = Intervencion::where('diputado_id', '=', $id)->get();
             if ($data != null)
             return response()->json(['data' => $data ]);
         else

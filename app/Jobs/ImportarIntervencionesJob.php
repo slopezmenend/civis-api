@@ -56,6 +56,7 @@ class ImportarIntervencionesJob implements ShouldQueue
         $class   = 'btn btn-primary btn-vot';
         $pattern = '*Intervenciones*.json';
         $urls = HTMLUtils::get_enlaces ($ruta, $class, $pattern);
+        dump($urls);
         foreach ($urls as $url)
         {
             dump("URL: ", $url);
