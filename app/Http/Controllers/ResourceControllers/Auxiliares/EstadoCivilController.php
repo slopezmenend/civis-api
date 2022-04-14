@@ -3,65 +3,65 @@
 namespace App\Http\Controllers\ResourceControllers\Auxiliares;
 
 use Illuminate\Http\Request;
-use App\Models\Congreso\Modelos\Circunscripcion;
+use App\Models\Congreso\Modelos\EstadoCivil;
 use App\Http\Controllers\Controller;
 
-class CircunscripcionController extends Controller
+class EstadoCivilController extends Controller
 {
     //
     public function index ()
     {
-        $circunscripciones = Circunscripcion::orderBy('nombre')->paginate(15);
-        return view ('pages.circunscripciones.index', compact('circunscripciones'));
+        $estadosciviles = EstadoCivil::all();
+        return view ('pages.estadosciviles.index', compact('estadosciviles'));
     }
 
 
     public function store(Request $request)
     {
         //dd($request);
-        $grupo = Grupo::create($request->all());
-        /*$circunscripcion = Circunscripcion::create(
+        $estado = EstadoCivil::create($request->all());
+        /*$estado = Circunscripcion::create(
             ['nombre' => 'Prueba circunscripcion']
         );*/
 
-        return redirect()->route('circunscripciones.index')->with('success', 'Circunscripcion '. $circunscripcion->nombre . ' creado correctamente con ID '. $circunscripcion->id . '.');
+        return redirect()->route('estadosciviles.index')->with('success', 'Estado Civil '. $estado->nombre . ' creado correctamente con ID '. $estado->id . '.');
     }
 
     public function create()
     {
         // load the create form (app/views/sharks/create.blade.php)
-        return view('pages.circunscripciones.create');
+        return view('pages.estadosciviles.create');
     }
 
-    public function show($id)
+    public function show($estadocivil)
     {
-        $circunscripcion = Circunscripcion::find($id);
+        //$estado = Circunscripcion::find($id);
         //dd($circunscripcion);
-        return view ('pages.circunscripciones.show', compact('circunscripcion'));
+        return view ('pages.estadosciviles.show', compact('estadocivil'));
     }
 
-    public function edit($id)
+    public function edit($estadocivil)
     {
-        $circunscripcion = Circunscripcion::find($id);
+        //$circunscripcion = Circunscripcion::find($id);
 
-        return view ('pages.circunscripciones.edit', compact('circunscripcion'));
+        return view ('pages.estadosciviles.edit', compact('estadocivil'));
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, EstadoCivil $estadocivil)
     {
-        $circunscripcion = Circunscripcion::find($id);
-        $circunscripcion->update($request->all());
+        //$circunscripcion = Circunscripcion::find($id);
+        $estadocivil->update($request->all());
 
-        return redirect()->route('circunscripciones.index')
-            ->with('success', 'circunscripcion '. $circunscripcion->nombre . ' actualizado correctamente.');
+        return redirect()->route('estadosciviles.index')
+            ->with('success', 'Estado Civil '. $estadocivil->nombre . ' actualizado correctamente.');
     }
 
-    public function destroy($id)
+    public function destroy(EstadoCivil $estadocivil)
     {
-        $circunscripcion = Circunscripcion::find($id);
-        $circunscripcion->delete();
+        //$estado = EstadoCivil::find($id);
+        $estadocivil->delete();
 
-        return redirect()->route('circunscripciones.index')
-            ->with('success', 'Circunscripcion '.  $circunscripcion->nombre . ' borrado correctamente');
+        return redirect()->route('estadosciviles.index')
+            ->with('success', 'Estado Civil '.  $estadocivil->nombre . ' borrado correctamente');
     }
 }
