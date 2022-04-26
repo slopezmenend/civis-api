@@ -126,7 +126,9 @@
                         placeholder="Sin valor para webpersonal" value='{{ $diputado->webpersonal }}' readonly>
                 </div>
 
-                <a href="{{ url()->previous() }}" type="button" class="btn btn-info">Volver</a>
+                <div class="row justify-content-md-center pb-2">
+                    <a href="{{ url()->previous() }}" type="button" class="col-6 btn btn-info">Volver</a>
+                </div>
             </form>
         </div>
     </div>

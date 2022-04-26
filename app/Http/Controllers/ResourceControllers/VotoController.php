@@ -11,7 +11,9 @@ class VotoController extends Controller
     //
     public function index ($id)
     {
-        $votos = Voto::where('votacion_id', $id)->orderBy('votacion_id', 'asc')->orderBy('diputado_id', 'asc')->paginate(15);
+        //dump($id);
+        $votos = Voto::where('votacion_id', $id)->whereNotNull('diputado_id')->orderBy('votacion_id', 'asc')->orderBy('diputado_id', 'asc')->paginate(15);
+        //dd($votos);
         foreach ($votos as $voto)
             $votacion = $voto->votacion_id;
         return view ('pages.votos.index', compact('votos', 'votacion'));

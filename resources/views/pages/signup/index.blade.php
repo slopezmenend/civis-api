@@ -19,6 +19,11 @@
                 @csrf
 
                 <div class="row form-group pr-4">
+                    <label class="ml-4 col-2 font-weight-bold" for="name">Nombre: </label>
+                    <input type="name" id="name" class="col-8 ml-4" name="name" placeholder="nombre">
+                </div>
+
+                <div class="row form-group pr-4">
                     <label class="ml-4 col-2 font-weight-bold" for="email">Email: </label>
                     <input type="email" id="email" class="col-8 ml-4" name="email" placeholder="email">
                 </div>

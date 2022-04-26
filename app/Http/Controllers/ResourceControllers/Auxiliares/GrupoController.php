@@ -21,7 +21,7 @@ class GrupoController extends Controller
         //dd($request);
         $grupo = Grupo::create($request->all());
 
-        return redirect()->route('pages.grupos.index')->with('success', 'Grupo '. $grupo->nombre . ' creado correctamente con ID '. $grupo->id . '.');
+        return redirect()->route('grupos.index')->with('success', 'Grupo '. $grupo->nombre . ' creado correctamente con ID '. $grupo->id . '.');
     }
 
     public function create()

@@ -8,12 +8,14 @@
         <div class="card-body">
             <form action="{{ route('circunscripciones.update', $circunscripcion) }}" method="POST">
                 @csrf
+                @method('PUT')
+
                 <div class="form-group row">
                     <div class="col-1 pl-1">
                         <label class="font-weight-bold" for="id">Id</label>
                     </div>
                     <div class="col">
-                        <input type="number" class="form-control" id="id" aria-describedby="idHelp"
+                        <input type="number" class="form-control" id="id" name="id" aria-describedby="idHelp"
                             placeholder="Introduzca id" value="{{ $circunscripcion->id }}" readonly>
                     </div>
                 </div>
@@ -22,7 +24,7 @@
                         <label class="font-weight-bold" for="nombre">Nombre</label>
                     </div>
                     <div class="col">
-                        <input type="text" class="form-control" id="nombre" aria-describedby="nombreHelp"
+                        <input type="text" class="form-control" id="nombre" name="nombre" aria-describedby="nombreHelp"
                             placeholder="Introduzca nombre" value="{{ $circunscripcion->nombre }}">
                     </div>
                 </div>
@@ -31,8 +33,9 @@
                         <label class="font-weight-bold" for="diputados">Diputados</label>
                     </div>
                     <div class="col">
-                        <input type="text" class="form-control" id="diputados" aria-describedby="diputadosHelp"
-                            placeholder="Introduzca diputados" value="{{ $circunscripcion->diputados() }}" readonly>
+                        <input type="text" class="form-control" id="diputados" name="diputados"
+                            aria-describedby="diputadosHelp" placeholder="Introduzca diputados"
+                            value="{{ $circunscripcion->diputados() }}" readonly>
                     </div>
                 </div>
 

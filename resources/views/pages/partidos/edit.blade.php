@@ -8,12 +8,14 @@
         <div class="card-body">
             <form action="{{ route('partidos.update', $partido) }}" method="POST">
                 @csrf
+                @method('PUT')
+
                 <div class="form-group row">
                     <div class="col-1 pl-1">
                         <label class="font-weight-bold" for="id">Id</label>
                     </div>
                     <div class="col">
-                        <input type="number" class="form-control" id="id" aria-describedby="idHelp"
+                        <input type="number" class="form-control" id="id" name="id" aria-describedby="idHelp"
                             placeholder="Introduzca id" value="{{ $partido->id }}" readonly>
                     </div>
                 </div>
@@ -22,7 +24,7 @@
                         <label class="font-weight-bold" for="nombre">Nombre</label>
                     </div>
                     <div class="col">
-                        <input type="text" class="form-control" id="nombre" aria-describedby="nombreHelp"
+                        <input type="text" class="form-control" id="nombre" name="nombre" aria-describedby="nombreHelp"
                             placeholder="Introduzca nombre" value="{{ $partido->nombre }}">
                     </div>
                 </div>
@@ -31,7 +33,7 @@
                         <label class="font-weight-bold" for="urllogo">URL Logo</label>
                     </div>
                     <div class="col">
-                        <input type="text" class="form-control" id="urllogo" aria-describedby="urllogoHelp"
+                        <input type="text" class="form-control" id="urllogo" name="urllogo" aria-describedby="urllogoHelp"
                             placeholder="Introduzca urllogo" value="{{ $partido->urllogo }}">
                     </div>
                 </div>

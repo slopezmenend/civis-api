@@ -12,7 +12,7 @@ class IntervencionController extends Controller
     //
     public function index ()
     {
-        $intervenciones = Intervencion::orderBy('sesion','asc')->paginate(15);
+        $intervenciones = Intervencion::whereNotNull('diputado_id')->orderBy('sesion','asc')->paginate(15);
         return view ('pages.intervenciones.index', compact('intervenciones'));
     }
 
@@ -37,8 +37,8 @@ class IntervencionController extends Controller
     public function update(Request $request, $id)
     {
         $intervencion = Intervencion::find($id);
-        dump($intervencion);
-        dd($request);
+        //dump($intervencion);
+        //dd($request);
         //$intervencion->enlaceSubtitles = $intervencion->enlaceSubtitles . "-mod";
         $intervencion->update($request->all());
 

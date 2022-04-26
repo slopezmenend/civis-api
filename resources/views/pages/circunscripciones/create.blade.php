@@ -13,7 +13,7 @@
                         <label class="font-weight-bold" for="nombre">Nombre</label>
                     </div>
                     <div class="col">
-                        <input type="text" class="form-control" id="nombre" aria-describedby="nombreHelp"
+                        <input type="text" class="form-control" id="nombre" name="nombre" aria-describedby="nombreHelp"
                             placeholder="Introduzca nombre">
                     </div>
                 </div>

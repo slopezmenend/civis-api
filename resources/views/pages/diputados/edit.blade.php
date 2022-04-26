@@ -196,7 +196,7 @@
                 </div>
 
                 <div class="row justify-content-md-center pb-2">
-                    <button type="submit" class="btn btn-primary">Guardar</button>
+                    <button type="submit" class="col-6 btn btn-info">Guardar</button>
                 </div>
 
                 <div class="row justify-content-md-center pb-2">

@@ -3,10 +3,10 @@
 @section('content')
     <div class="card p-1 m-4">
         <div class="card-header">
-            <h1>Editar diputado {{ $diputado->id }}</h1>
+            <h1>Revisar diputado {{ $diputado->id }}</h1>
         </div>
         <div class="card-body">
-            <form action="{{ route('diputados.update', $diputado) }}" method="POST">
+            <form action="{{ route('importar-diputados.update', $diputado) }}" method="POST">
                 @csrf
                 @method('PUT')
 
@@ -304,7 +304,7 @@
                 </div>
 
                 <div class="row justify-content-md-center pb-2">
-                    <button type="submit" class="btn btn-primary">Guardar</button>
+                    <button type="submit" class="col-6 btn btn-info">Guardar</button>
                 </div>
 
                 <div class="row justify-content-md-center pb-2">

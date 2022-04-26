@@ -19,7 +19,7 @@ class CircunscripcionController extends Controller
     public function store(Request $request)
     {
         //dd($request);
-        $grupo = Grupo::create($request->all());
+        $circunscripcion = Circunscripcion::create($request->all());
         /*$circunscripcion = Circunscripcion::create(
             ['nombre' => 'Prueba circunscripcion']
         );*/

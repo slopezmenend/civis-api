@@ -21,7 +21,7 @@ class PartidoController extends Controller
         //dd($request);
         $partido = Partido::create($request->all());
 
-        return redirect()->route('pages.partidos.index')->with('success', 'Partido '. $partido->nombre . ' creado correctamente con ID '. $partido->id . '.');
+        return redirect()->route('partidos.index')->with('success', 'Partido '. $partido->nombre . ' creado correctamente con ID '. $partido->id . '.');
     }
 
     public function create()

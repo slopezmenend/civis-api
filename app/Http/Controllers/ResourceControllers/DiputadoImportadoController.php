@@ -60,6 +60,7 @@ class DiputadoImportadoController extends Controller
 
     public function update(Request $request, DiputadoImportado $importar_diputado)
     {
+        //dd($importar_diputado);
         $diputado_imp = $importar_diputado;
         $diputado = Diputado::find($diputado_imp->id);
         $diputado->fechaimportado = $diputado_imp->updated_at;
@@ -70,7 +71,7 @@ class DiputadoImportadoController extends Controller
         $diputado_imp->revisado = true;
         $diputado_imp->save();
 
-        return redirect()->route('diputados.review.index')
+        return redirect()->route('importar-diputados.index')
             ->with('success', 'Diputado '. $diputado->nombrecompleto . ' actualizado correctamente.');
     }
 }
