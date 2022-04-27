@@ -15,7 +15,7 @@
                     <p>Se le ha enviado un email de confirmación. Compruebe su bandeja.</p>
                 </div>
                 <div class="card border-0 text-center pb-5">
-                    <a href="C:\Users\U336813\Downloads\TFM\demo\index.html">Volver</a>
+                    <a href="{{ route('/') }}">Volver</a>
                 </div>
             </div>
 

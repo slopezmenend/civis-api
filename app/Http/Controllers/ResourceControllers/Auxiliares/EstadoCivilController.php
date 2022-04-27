@@ -11,7 +11,7 @@ class EstadoCivilController extends Controller
     //
     public function index ()
     {
-        $estadosciviles = EstadoCivil::all();
+        $estadosciviles = EstadoCivil::orderBy('nombre')->paginate(15);
         return view ('pages.estadosciviles.index', compact('estadosciviles'));
     }
 

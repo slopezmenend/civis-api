@@ -3,65 +3,65 @@
 namespace App\Http\Controllers\ResourceControllers\Auxiliares;
 
 use Illuminate\Http\Request;
-use App\Models\Congreso\Modelos\Circunscripcion;
+use App\Models\Congreso\Modelos\Sexo;
 use App\Http\Controllers\Controller;
 
-class CircunscripcionController extends Controller
+class SexoController extends Controller
 {
     //
     public function index ()
     {
-        $circunscripciones = Circunscripcion::orderBy('nombre')->paginate(15);
-        return view ('pages.circunscripciones.index', compact('circunscripciones'));
+        $sexos = Sexo::orderBy('nombre')->paginate(15);
+        return view ('pages.sexos.index', compact('sexos'));
     }
 
 
     public function store(Request $request)
     {
         //dd($request);
-        $grupo = Grupo::create($request->all());
-        /*$circunscripcion = Circunscripcion::create(
-            ['nombre' => 'Prueba circunscripcion']
+        $sexo = Sexo::create($request->all());
+        /*$Sexo = Sexo::create(
+            ['nombre' => 'Prueba Sexo']
         );*/
 
-        return redirect()->route('circunscripciones.index')->with('success', 'Circunscripcion '. $circunscripcion->nombre . ' creado correctamente con ID '. $circunscripcion->id . '.');
+        return redirect()->route('sexos.index')->with('success', 'Sexo '. $sexo->nombre . ' creado correctamente con ID '. $sexo->id . '.');
     }
 
     public function create()
     {
         // load the create form (app/views/sharks/create.blade.php)
-        return view('pages.circunscripciones.create');
+        return view('pages.sexos.create');
     }
 
     public function show($id)
     {
-        $circunscripcion = Circunscripcion::find($id);
-        //dd($circunscripcion);
-        return view ('pages.circunscripciones.show', compact('circunscripcion'));
+        $sexo = Sexo::find($id);
+        //dd($Sexo);
+        return view ('pages.sexos.show', compact('sexo'));
     }
 
     public function edit($id)
     {
-        $circunscripcion = Circunscripcion::find($id);
+        $sexo = Sexo::find($id);
 
-        return view ('pages.circunscripciones.edit', compact('circunscripcion'));
+        return view ('pages.sexos.edit', compact('sexo'));
     }
 
     public function update(Request $request, $id)
     {
-        $circunscripcion = Circunscripcion::find($id);
-        $circunscripcion->update($request->all());
+        $sexo = Sexo::find($id);
+        $sexo->update($request->all());
 
-        return redirect()->route('circunscripciones.index')
-            ->with('success', 'circunscripcion '. $circunscripcion->nombre . ' actualizado correctamente.');
+        return redirect()->route('sexos.index')
+            ->with('success', 'Sexo '. $sexo->nombre . ' actualizado correctamente.');
     }
 
     public function destroy($id)
     {
-        $circunscripcion = Circunscripcion::find($id);
-        $circunscripcion->delete();
+        $sexo = Sexo::find($id);
+        $sexo->delete();
 
-        return redirect()->route('circunscripciones.index')
-            ->with('success', 'Circunscripcion '.  $circunscripcion->nombre . ' borrado correctamente');
+        return redirect()->route('sexos.index')
+            ->with('success', 'Sexo '.  $sexo->nombre . ' borrado correctamente');
     }
 }

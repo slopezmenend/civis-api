@@ -18,6 +18,10 @@ class Sexo extends Model
         return $ec;
     }
 
+    public function diputados () {
+        return Diputado::where('sexo_id' , $this->id)->count();
+    }
+
     public static function findOrCreate ($nombre)
     {
         $sexo = Sexo::where ('nombre', $nombre);

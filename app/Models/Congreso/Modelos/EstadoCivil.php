@@ -25,6 +25,11 @@ class EstadoCivil extends Model
         return $dip;
     }
 
+    public function diputados () {
+        //dd(Diputado::where('estadocivil_id' , $this->id)->count());
+        return Diputado::where('estadocivil_id' , $this->id)->count();
+    }
+
     public static function findOrCreate ($sexo_id, $nombre_estado)
     {
         //$sexo = Sexo::where ('nombre', $nombre_sexo);

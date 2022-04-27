@@ -17,6 +17,7 @@
             <!-- Registro Form -->
             <form class="p-2" action="{{ route('signup.confirmation') }}" method="POST">
                 @csrf
+                @method('PUT')
 
                 <div class="row form-group pr-4">
                     <label class="ml-4 col-2 font-weight-bold" for="name">Nombre: </label>

@@ -299,6 +299,38 @@
                     </div>
                 </a>
             </div>
+
+            <div class="card">
+                <a href="{{ route('estadosciviles.index') }}" class="text-decoration-none">
+                    <div class="card-body">
+                        <div class="media d-flex">
+                            <div class="align-self-center">
+                                <i class="bi bi-briefcase-fill primary h1 float-left"></i>
+                            </div>
+                            <div class="media-body text-right">
+                                <h3>{{ $summary['estadosciviles'] }}</h3>
+                                <span>Estados civiles</span>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="card">
+                <a href="{{ route('sexos.index') }}" class="text-decoration-none">
+                    <div class="card-body">
+                        <div class="media d-flex">
+                            <div class="align-self-center">
+                                <i class="bi bi-briefcase-fill primary h1 float-left"></i>
+                            </div>
+                            <div class="media-body text-right">
+                                <h3>{{ $summary['sexos'] }}</h3>
+                                <span>Sexos</span>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
         </div>
     </div>
 @endsection

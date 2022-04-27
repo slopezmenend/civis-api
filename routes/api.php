@@ -21,8 +21,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::group(['middleware' => ['cors']], function () {
     // public routes
     Route::post('/login', 'Auth\ApiAuthController@login')->name('login.api');
-    Route::post('/register','Auth\ApiAuthController@register')->name('register.api');
-    Route::post('/logout', 'Auth\ApiAuthController@logout')->name('logout.api');
 });
 
 /** Diputados */
@@ -43,13 +41,13 @@ Route::get ('/intervenciones/diputado/{id}', 'APIController@getIntervencionByDip
 Route::get ('/intervencion/{id}', 'APIController@getIntervencion')->middleware('auth:api');
 
 /** Auxiliares */
-Route::get ('/circunscripciones', 'APIController@getCircunscripciones');//->middleware('auth:api');
-Route::get ('/circunscripcion/{id}', 'APIController@getCircunscripcion');//->middleware('auth:api');
-Route::get ('/grupos', 'APIController@getGrupos');//->middleware('auth:api');
-Route::get ('/grupo/{id}', 'APIController@getGrupo');//->middleware('auth:api');
-Route::get ('/partidos', 'APIController@getPartidos');//->middleware('auth:api');
-Route::get ('/partido/{id}', 'APIController@getPartido');//->middleware('auth:api');
-Route::get ('/sexos', 'APIController@getSexos');//->middleware('auth:api');
-Route::get ('/sexo/{id}', 'APIController@getSexo');//->middleware('auth:api');
-Route::get ('/estadosciviles', 'APIController@getEstdosCiviles');//->middleware('auth:api');
-Route::get ('/estadocivil/{id}', 'APIController@getEstadoCivil');//->middleware('auth:api');
+Route::get ('/circunscripciones', 'APIController@getCircunscripciones')->middleware('auth:api');
+Route::get ('/circunscripcion/{id}', 'APIController@getCircunscripcion')->middleware('auth:api');
+Route::get ('/grupos', 'APIController@getGrupos')->middleware('auth:api');
+Route::get ('/grupo/{id}', 'APIController@getGrupo')->middleware('auth:api');
+Route::get ('/partidos', 'APIController@getPartidos')->middleware('auth:api');
+Route::get ('/partido/{id}', 'APIController@getPartido')->middleware('auth:api');
+Route::get ('/sexos', 'APIController@getSexos')->middleware('auth:api');
+Route::get ('/sexo/{id}', 'APIController@getSexo')->middleware('auth:api');
+Route::get ('/estadosciviles', 'APIController@getEstdosCiviles')->middleware('auth:api');
+Route::get ('/estadocivil/{id}', 'APIController@getEstadoCivil')->middleware('auth:api');

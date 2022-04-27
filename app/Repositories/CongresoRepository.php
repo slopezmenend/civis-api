@@ -11,6 +11,8 @@ use App\Models\Congreso\Modelos\Voto;
 use App\Models\Congreso\Modelos\Circunscripcion;
 use App\Models\Congreso\Modelos\Partido;
 use App\Models\Congreso\Modelos\Grupo;
+use App\Models\Congreso\Modelos\EstadoCivil;
+use App\Models\Congreso\Modelos\Sexo;
 use App\Models\Constante;
 
 class CongresoRepository implements CongresoRepositoryInterface
@@ -185,7 +187,9 @@ private function convertir_sql2json_date ($date)
             "intervenciones"   => $intervenciones_data,
             "partidos" => Partido::count(),
             "grupos" => Grupo::count(),
-            "circunscripciones" => Circunscripcion::count()
+            "circunscripciones" => Circunscripcion::count(),
+            "estadosciviles" => EstadoCivil::count(),
+            "sexos" => Sexo::count()
         );
         } catch (Exception $e) {
             $diputados_data = array (
@@ -223,7 +227,9 @@ private function convertir_sql2json_date ($date)
                 "intervenciones"   => $intervenciones_data,
                 "partidos" => 0,
                 "grupos" => 0,
-                "circunscripciones" => 0
+                "circunscripciones" => 0,
+                "estadosciviles" => 0,
+                "sexos" => 0
             );
 
         }
