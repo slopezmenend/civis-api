@@ -53,7 +53,7 @@ class APIController extends Controller
 
     public function getAllVotacionesSummary()//: JsonResponse
     {
-        $data = Votaciones::all();
+        $data = Votacion::all();
         if ($data != null)
             return response()->json(['data' => $data ]);
         else
