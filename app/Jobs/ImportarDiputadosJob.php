@@ -192,7 +192,7 @@ class ImportarDiputadosJob implements ShouldQueue
     {
         //Cargamos los valores por defecto de Sexo y Estado Civil si están vacíos
         Sexo::inicializar();
-        EstadoCivil::inicializar();
+        //EstadoCivil::inicializar();
         dump ('Importando diputados JSON');
         $this->importar_diputados();
         dump ('Importando diputados HTML');
