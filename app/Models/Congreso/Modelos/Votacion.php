@@ -23,7 +23,7 @@ class Votacion extends Model
                             'enContra',
                             'abstenciones',
                             'noVotan'];
-    protected $hidden = ['created_at', 'updated_at'];
+    //protected $hidden = ['created_at', 'updated_at'];
 
     public $timestamps = false;
 
