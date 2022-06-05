@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <a class="navbar-brand" href="/">
-        <img src="/storage/app/icon.png" width="40" height="40" alt="">
+        <img src="{{ asset('images/CIVIS-API.jpg') }}" width="40" height="40" alt="">
         <!--<img src="https://ibb.co/c8vSJXX" width="40" height="40" alt="">-->
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -59,6 +59,9 @@
                         </div>
                     </li>
                 @endauth
+                <li class="nav-item">
+                    <a class="nav-link" href="/eps">Listado EPs</a></a>
+                </li>
             </ul>
         @endif
 
@@ -70,8 +73,9 @@
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
 
-                        <x-dropdown-link :href="route('logout')" onclick="event.preventDefault();
-                                                                                        this.closest('form').submit();"
+                        <x-dropdown-link :href="route('logout')"
+                            onclick="event.preventDefault();
+                                                                                                                this.closest('form').submit();"
                             class="mr-1 ml-1 btn btn-outline-info my-2 my-sm-0">
                             {{ __('Log Out') }}
                         </x-dropdown-link>

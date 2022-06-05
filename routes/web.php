@@ -29,6 +29,9 @@ Route::get ('/welcome', function () {
 Route::get ('/dashboard', function () {
     return redirect()->route('index');
 });
+Route::get ('/eps', function () {
+    return view('pages.eps');
+});
 
 /** Scripts */
 Route::get ('/votaciones/importar/', 'ScriptController@import_votaciones_job')->middleware(['auth'])->name("votaciones.importar");

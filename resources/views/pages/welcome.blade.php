@@ -3,6 +3,6 @@
 @section('content')
     <h1>Civis API Dashboard</h1>
     <div>
-        Bienvenido a CIVIS... registrate para continuar
+        Bienvenido a CIVIS... registrate o logueate para continuar
     </div>
 @endsection
