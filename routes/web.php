@@ -38,6 +38,7 @@ Route::get ('/votaciones/importar/', 'ScriptController@import_votaciones_job')->
 Route::get ('/diputados/importar/', 'ScriptController@import_diputados_job')->middleware(['auth'])->name('diputados.importar');
 Route::get ('/intervenciones/importar/', 'ScriptController@import_intervenciones_job')->middleware(['auth'])->name("intervenciones.importar");
 Route::get ('/intervenciones/revisar/', 'ScriptController@importar_intervenciones')->middleware(['auth'])->name("intervenciones.revisar");
+Route::get ('/arreglar/', 'ScriptController@arreglo_importados');
 
 /* Recursos principales */
 Route::resource('importar-diputados', ResourceControllers\DiputadoImportadoController::class)->except(['store', 'destroy'])->middleware(['auth']);
@@ -64,5 +65,4 @@ Route::get('estadosciviles/{estadocivil}/delete', 'ResourceControllers\Auxiliare
 
 Route::resource('sexos', ResourceControllers\Auxiliares\SexoController::class)->middleware(['auth']);
 Route::get('sexos/{sexo}/delete', 'ResourceControllers\Auxiliares\SexoController@destroy')->name("estadosciviles.destroy")->middleware(['auth']);
-
 

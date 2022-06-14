@@ -39,6 +39,7 @@ class ImportarDiputadosJob implements ShouldQueue
         $contador = 0;
         foreach ($data as $diputado)
         {
+            dump ('importando diputado:', $diputado);
             //creamos el diputado para cada registro
             $dipu = DiputadoImportado::createFromJSON ($diputado);
 
@@ -52,6 +53,8 @@ class ImportarDiputadosJob implements ShouldQueue
         $class   = 'btn btn-primary btn-vot';
         $pattern = '*DiputadosActivos*.json';
         $urls = HTMLUtils::get_enlaces ($ruta, $class, $pattern);
+
+        //dump ('Vamos a procesar las URLs: ', $urls, $ruta, $class, $pattern);
         foreach ($urls as $url)
         {
             dump("URL: ", $url);
@@ -191,12 +194,12 @@ class ImportarDiputadosJob implements ShouldQueue
     public function handle()
     {
         //Cargamos los valores por defecto de Sexo y Estado Civil si están vacíos
-        Sexo::inicializar();
+        //Sexo::inicializar();
         //EstadoCivil::inicializar();
         dump ('Importando diputados JSON');
         $this->importar_diputados();
-        dump ('Importando diputados HTML');
-        $this->importar_diputados_html();
+        //dump ('Importando diputados HTML');
+        //$this->importar_diputados_html();
     }
 
     /**

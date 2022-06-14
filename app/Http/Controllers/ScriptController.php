@@ -48,5 +48,35 @@ class ScriptController extends Controller
         ImportarIntervencionesJob::dispatch();
         return redirect('/')->with('success', 'Proceso de importado de intervenciones lanzado correctamente');
     }
+
+    public function arreglo_importados ()
+    {
+        $diputados = Diputado::all();
+        foreach ($diputados as $diputado)
+        {
+            $diputado_imp = DiputadoImportado::find($diputado->id);
+
+            if ($diputado_imp == null)
+            {
+                echo "Hay que crear el diputado_imp " . $diputado->id;
+                $dipu_imp = DiputadoImportado::findOrCreate ($diputado->nombrecompleto);
+
+                $dipu_imp->id = $diputado->id;
+                $dipu_imp->numero = $diputado->numero;
+                $dipu_imp->urlperfil = $diputado->urlperfil;
+                $dipu_imp->urlfoto = $diputado->urlfoto;
+                $dipu_imp->urlescaño = $diputado->urlescaño;
+                $dipu_imp->email = $diputado->email;
+                $dipu_imp->twitter = $diputado->twitter;
+                $dipu_imp->facebook = $diputado->facebook;
+                $dipu_imp->instagram = $diputado->instagram;
+                $dipu_imp->youtube = $diputado->youtube;
+                $dipu_imp->webpersonal =  $diputado->webpersonal;
+                $dipu_imp->biografia =  $diputado->biografia;
+
+                $dipu_imp->save();
+            }
+        }
+    }
 }
 ?>

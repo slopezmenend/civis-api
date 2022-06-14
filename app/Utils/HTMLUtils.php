@@ -38,12 +38,12 @@ public static function get_enlaces ($base, $class, $pattern, $prefijo = true)
         @$doc->loadHTMLFile($base, LIBXML_NOWARNING | LIBXML_NOERROR);
 
 
-        //partimos el patrón por '*' para transformar '*prueba*.json' en ['Prueba','.json']
-
         //recogemos los enlaces
         $as = $doc->getElementsByTagName ('a');
+//        dump ('Encontrados los enlaces: ', $as, $doc);
         foreach ($as as $a)
         {
+            //dump ('Inicio de checkeo de enlace: ', a);
             $classfound = false;
             $patternfound = false;
             $athref = '';
@@ -56,6 +56,7 @@ public static function get_enlaces ($base, $class, $pattern, $prefijo = true)
                 {
                     $atclass = HTMLUtils::checkAttribute ($aattribute, 'class', $class);
                     $classfound = $atclass != null;
+                //    if ($classfound) dump ('Encontrada clase:', $a);
                 }
 
                 if (!$patternfound)
@@ -63,6 +64,7 @@ public static function get_enlaces ($base, $class, $pattern, $prefijo = true)
                     //dump ("Comprobando enlace: ", $aattribute->nodeValue);
                     $athref = HTMLUtils::checkAttribute ($aattribute, 'href', $pattern);
                     $patternfound = $athref != null;
+                //    if ($patternfound) dump ('Encontrado pattron:', $a);
                 }
             }
 
@@ -73,6 +75,7 @@ public static function get_enlaces ($base, $class, $pattern, $prefijo = true)
                 print_r($enlaces);
             }
         }
+
         return $enlaces;
     }
 }
