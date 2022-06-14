@@ -198,8 +198,8 @@ class ImportarDiputadosJob implements ShouldQueue
         //EstadoCivil::inicializar();
         dump ('Importando diputados JSON');
         $this->importar_diputados();
-        //dump ('Importando diputados HTML');
-        //$this->importar_diputados_html();
+        dump ('Importando diputados HTML');
+        $this->importar_diputados_html();
     }
 
     /**
