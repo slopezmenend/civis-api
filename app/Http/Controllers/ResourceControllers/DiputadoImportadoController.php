@@ -61,14 +61,24 @@ class DiputadoImportadoController extends Controller
     public function update(Request $request, DiputadoImportado $importar_diputado)
     {
         //dd($importar_diputado);
+        //dump ($importar_diputado);
+        //dump ($request->all());
         $diputado_imp = $importar_diputado;
+
         $diputado = Diputado::find($diputado_imp->id);
         $diputado->fechaimportado = $diputado_imp->updated_at;
         $diputado->fecharevision = now();
-        $diputado->update($request->all());
+        //dump ($diputado);
+
+        $results = array_filter($request->all());
+        //dump ($results);
+        $diputado->update($results);
+        //$diputado->update($request->all());
 
         //$diputado_imp->update($request->all());
+
         $diputado_imp->revisado = true;
+        //dump ($diputado_imp);
         $diputado_imp->save();
 
         return redirect()->route('importar-diputados.index')

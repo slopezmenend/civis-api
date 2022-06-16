@@ -56,7 +56,10 @@ class DiputadoController extends Controller
         //$diputado->nombre = $diputado->nombre . "-mod";
         //dd($request->all());
         //dd($request);
-        $diputado->update($request->all());
+        $results = array_filter($request->all());
+        //dump ($results);
+        $diputado->update($results);
+        //$diputado->update($request->all());
 
         return redirect()->route('diputados.index')
             ->with('success', 'Diputado '. $diputado->nombrecompleto . ' actualizado correctamente.');

@@ -30,6 +30,11 @@
                         readonly>
                 </div>
                 <div class="form-group">
+                    <label for="fechacondicion">Fecha alta</label>
+                    <input type="date" class="form-control" id="fechacondicion" aria-describedby="fechacondicionHelp"
+                        placeholder="Sin valor para fecha condicion plena" value={{ $diputado->fechaalta }} readonly>
+                </div>
+                <div class="form-group">
                     <label for="fechaalta">Fecha alta</label>
                     <input type="date" class="form-control" id="fechaalta" aria-describedby="fechaaltaHelp"
                         placeholder="Sin valor para fecha alta" value={{ $diputado->fechaalta }} readonly>

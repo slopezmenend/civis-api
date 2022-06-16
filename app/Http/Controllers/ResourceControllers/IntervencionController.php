@@ -40,7 +40,9 @@ class IntervencionController extends Controller
         //dump($intervencion);
         //dd($request);
         //$intervencion->enlaceSubtitles = $intervencion->enlaceSubtitles . "-mod";
-        $intervencion->update($request->all());
+        $results = array_filter($request->all());
+        //dump ($results);
+        $intervencion->update($results);
 
         return redirect()->route('intervenciones.index')
             ->with('success', 'Intervencion '. $intervencion->id . ' actualizada correctamente.');

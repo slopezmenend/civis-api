@@ -195,7 +195,7 @@
                 </div>
 
                 <div class="card">
-                    <a href="{{ route('intervenciones.revisar') }}" class="text-decoration-none">
+                    <a href="{{ route('intervenciones.index') }}" class="text-decoration-none">
                         <div class="card-body">
                             <div class="media d-flex">
                                 <div class="align-self-center">
