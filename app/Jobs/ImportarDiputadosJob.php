@@ -31,7 +31,8 @@ class ImportarDiputadosJob implements ShouldQueue
         ini_set('max_execution_time', 0);
 
         //leemos las intervenciones del json indicado
-        $jsondata = file_get_contents($url);
+        //$jsondata = file_get_contents($url);
+        $jsondata = HTMLUtils::url_get_content($url);
         $data = json_decode($jsondata, true);
 
         //ahora creamos el objeto de avance para mostrar el progreso
@@ -80,8 +81,10 @@ class ImportarDiputadosJob implements ShouldQueue
             $this->avance->avanzar($i);
             $ruta = 'https://www.congreso.es/busqueda-de-diputados?p_p_id=diputadomodule&p_p_lifecycle=0&p_p_state=normal&p_p_mode=view&_diputadomodule_mostrarFicha=true&codParlamentario='.$i.'&idLegislatura=XIV&mostrarAgenda=false';
 
+            $content = HTMLUtils::url_get_content($ruta);
             $doc = new \DOMDocument();
-            @$doc->loadHTMLFile($ruta, LIBXML_NOWARNING | LIBXML_NOERROR);
+            //@$doc->loadHTMLFile($ruta, LIBXML_NOWARNING | LIBXML_NOERROR);
+            @$doc->loadHTML($ruta, LIBXML_NOWARNING | LIBXML_NOERROR);
 
             $imgs = $doc->getElementsByTagName ('img');
             foreach ($imgs as $img)

@@ -22,7 +22,8 @@ class ImportarVotacionesJob implements ShouldQueue
 
     private function import_json_votes($url, $name)
     {
-        $jsondata = file_get_contents($url);
+        //$jsondata = file_get_contents($url);
+        $jsondata = HTMLUtils::url_get_content($url);
         $data = json_decode($jsondata, true);
 
         //cargamos la votación
@@ -38,7 +39,8 @@ class ImportarVotacionesJob implements ShouldQueue
     private function get_date_votes ($date)
     {
         $path = 'https://www.congreso.es/opendata/votaciones?p_p_id=votaciones&p_p_lifecycle=0&p_p_state=normal&p_p_mode=view&targetLegislatura=XIV&targetDate=' . $date;
-        $html = file_get_contents($path);
+        //$html = file_get_contents($path);
+        $html = HTMLUtils::url_get_content($path);
 
         $code = $html;
         $buscar = true;
