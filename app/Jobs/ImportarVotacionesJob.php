@@ -9,10 +9,13 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 
-use App\Utils\FormaterUtils;
+
 use App\Models\Congreso\Modelos\Votacion;
 use App\Models\Congreso\Modelos\Voto;
+
+use App\Utils\HTMLUtils;
 use App\Utils\Avance;
+use App\Utils\FormaterUtils;
 
 class ImportarVotacionesJob implements ShouldQueue
 {
@@ -81,7 +84,7 @@ class ImportarVotacionesJob implements ShouldQueue
             if (\App::environment('local'))
                 $date->setDate(2019, 12, 3);
             else
-                $date->setDate(2022, 4, 1);
+                $date->setDate(2022, 6, 1);
         }
         else
         {

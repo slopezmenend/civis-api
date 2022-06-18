@@ -12,6 +12,7 @@ use Illuminate\Queue\SerializesModels;
 use App\Models\Congreso\Modelos\Intervencion;
 use App\Utils\HTMLUtils;
 use App\Utils\Avance;
+use App\Utils\FormaterUtils;
 
 class ImportarIntervencionesJob implements ShouldQueue
 {
@@ -40,7 +41,7 @@ class ImportarIntervencionesJob implements ShouldQueue
             $month = substr ($intervencion['SESION'], 3 ,2);
 
             $cargar = \App::environment('local') ||
-                    ($year == '2022') && (($month == '04') || ($month == '05'));
+                    ($year == '2022') && (($month == '06') || ($month == '01'));
 
             if ($cargar) {
                 //creamos la intervencion para cada registro

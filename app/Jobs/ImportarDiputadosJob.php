@@ -16,7 +16,6 @@ use App\Models\Congreso\Modelos\EstadoCivil;
 
 use App\Utils\HTMLUtils;
 use App\Utils\Avance;
-
 use App\Utils\FormaterUtils;
 
 class ImportarDiputadosJob implements ShouldQueue
