@@ -155,7 +155,7 @@ private function convertir_sql2json_date ($date)
         $diputados_data = array (
             "creados" => Diputado::count(),
             "pendientes" => DiputadoImportado::where('revisado',false)->count(),
-            "fechaimp" =>$this->convertir_sql2json_date(DiputadoImportado::max('fechaimp')),
+            "fechaimp" =>$this->convertir_sql2json_date(DiputadoImportado::max('updated_at')),
             "status" => Constante::findOrCreate('DIPUTADOS_ST')->value,
             "porcentaje" => Constante::findOrCreate('DIPUTADOS_AV')->value
         );
