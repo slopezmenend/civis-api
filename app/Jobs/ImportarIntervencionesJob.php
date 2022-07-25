@@ -40,13 +40,13 @@ class ImportarIntervencionesJob implements ShouldQueue
             $year = substr($intervencion['SESION'], 6 ,4);
             $month = substr ($intervencion['SESION'], 3 ,2);
 
-            $cargar = \App::environment('local') ||
-                    ($year == '2022') && (($month == '06') || ($month == '01'));
+            //$cargar = \App::environment('local') ||
+            //        ($year == '2022') && (($month == '06') || ($month == '01'));
 
-            if ($cargar) {
+            //if ($cargar) {
                 //creamos la intervencion para cada registro
                 $int = Intervencion::createFromJSON ($intervencion);
-            }
+            //}
             //avanzamos el avance
             $this->avance->avanzar($contador = $contador + 1);
         }

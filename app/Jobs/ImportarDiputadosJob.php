@@ -64,10 +64,12 @@ class ImportarDiputadosJob implements ShouldQueue
 
     public function importar_diputados_html()
     {
+        dump ("Inicio Vamos a recuperar diputados");
         ini_set('max_execution_time', 0);
         $diputados_html = array ();
 
         $this->avance = new Avance ('DIPUTADOS_ST', 'DIPUTADOS_AV', 400);
+        dump ("Vamos a recuperar diputados");
         for ($i = 1; $i <= 400; $i++) {
        //     $i = 381; {
             $nombrecompleto = '';
@@ -80,10 +82,12 @@ class ImportarDiputadosJob implements ShouldQueue
             $this->avance->avanzar($i);
             $ruta = 'https://www.congreso.es/busqueda-de-diputados?p_p_id=diputadomodule&p_p_lifecycle=0&p_p_state=normal&p_p_mode=view&_diputadomodule_mostrarFicha=true&codParlamentario='.$i.'&idLegislatura=XIV&mostrarAgenda=false';
 
+            dump ("Vamos a recuperar perfil de la ruta: (",$i,"): ", $ruta);
             $content = HTMLUtils::url_get_content($ruta);
+            //dump ($content);
             $doc = new \DOMDocument();
             //@$doc->loadHTMLFile($ruta, LIBXML_NOWARNING | LIBXML_NOERROR);
-            @$doc->loadHTML($ruta, LIBXML_NOWARNING | LIBXML_NOERROR);
+            @$doc->loadHTML($content, LIBXML_NOWARNING | LIBXML_NOERROR);
 
             $imgs = $doc->getElementsByTagName ('img');
             foreach ($imgs as $img)
@@ -94,7 +98,9 @@ class ImportarDiputadosJob implements ShouldQueue
                     if ($imgattribute->nodeName == 'class' && $imgattribute->nodeValue == 'card-img-top')
                         $esperfil = true;
                     if ($imgattribute->nodeName == 'src' && $esperfil)
+                    {
                         $fotoperfil = 'https://www.congreso.es/' . $imgattribute->nodeValue;
+                    }
                 }
             }
 

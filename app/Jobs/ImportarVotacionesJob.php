@@ -81,10 +81,10 @@ class ImportarVotacionesJob implements ShouldQueue
         if (($fecha == null) || ($fecha == '00/00/0000'))
         {
             $date = new \DateTime();
-            if (\App::environment('local'))
+            //if (\App::environment('local'))
                 $date->setDate(2019, 12, 3);
-            else
-                $date->setDate(2022, 6, 1);
+            //else
+            //    $date->setDate(2022, 6, 1);
         }
         else
         {
