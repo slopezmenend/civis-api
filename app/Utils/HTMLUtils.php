@@ -63,11 +63,11 @@ public static function get_enlaces ($base, $class, $pattern, $prefijo = true)
         //@$doc->loadHTMLFile($base, LIBXML_NOWARNING | LIBXML_NOERROR);
         /*Cambio porque php_get_content dejó de funcionar*/
         $content = HTMLUtils::url_get_content ($base);
-        @$doc->loadHTML($content, LIBXML_NOWARNING | LIBXML_NOERROR);
+        $doc->loadHTML($content, LIBXML_NOWARNING | LIBXML_NOERROR);
 
         //recogemos los enlaces
         $as = $doc->getElementsByTagName ('a');
-//        dump ('Encontrados los enlaces: ', $as, $doc);
+        dump ('Encontrados los enlaces: ', $as, $doc);
         foreach ($as as $a)
         {
             //dump ('Inicio de checkeo de enlace: ', a);
