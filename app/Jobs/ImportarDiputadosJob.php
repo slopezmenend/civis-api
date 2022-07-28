@@ -36,6 +36,7 @@ class ImportarDiputadosJob implements ShouldQueue
 
         //ahora creamos el objeto de avance para mostrar el progreso
         $this->avance = new Avance ('DIPUTADOS_ST', 'DIPUTADOS_AV', sizeof($data));
+        dump ('N. Diputados en JSON: ', sizeof($data));
         $contador = 0;
         foreach ($data as $diputado)
         {
@@ -54,7 +55,7 @@ class ImportarDiputadosJob implements ShouldQueue
         $pattern = '*DiputadosActivos*.json';
         $urls = HTMLUtils::get_enlaces ($ruta, $class, $pattern);
 
-        //dump ('Vamos a procesar las URLs: ', $urls, $ruta, $class, $pattern);
+        dump ('Vamos a procesar las URLs: ', $urls, $ruta, $class, $pattern);
         foreach ($urls as $url)
         {
             dump("URL: ", $url);
@@ -64,7 +65,7 @@ class ImportarDiputadosJob implements ShouldQueue
 
     public function importar_diputados_html()
     {
-        dump ("Inicio Vamos a recuperar diputados");
+        //dump ("Inicio Vamos a recuperar diputados");
         ini_set('max_execution_time', 0);
         $diputados_html = array ();
 
@@ -82,12 +83,12 @@ class ImportarDiputadosJob implements ShouldQueue
             $this->avance->avanzar($i);
             $ruta = 'https://www.congreso.es/busqueda-de-diputados?p_p_id=diputadomodule&p_p_lifecycle=0&p_p_state=normal&p_p_mode=view&_diputadomodule_mostrarFicha=true&codParlamentario='.$i.'&idLegislatura=XIV&mostrarAgenda=false';
 
-            dump ("Vamos a recuperar perfil de la ruta: (",$i,"): ", $ruta);
+            //dump ("Vamos a recuperar perfil de la ruta: (",$i,"): ", $ruta);
             $content = HTMLUtils::url_get_content($ruta);
             //dump ($content);
             $doc = new \DOMDocument();
             //@$doc->loadHTMLFile($ruta, LIBXML_NOWARNING | LIBXML_NOERROR);
-            @$doc->loadHTML($content, LIBXML_NOWARNING | LIBXML_NOERROR);
+            $doc->loadHTML($content, LIBXML_NOWARNING | LIBXML_NOERROR);
 
             $imgs = $doc->getElementsByTagName ('img');
             foreach ($imgs as $img)
